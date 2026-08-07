@@ -1050,6 +1050,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ==========================================
+     SETTINGS PAGE INTERACTION HANDLERS
+     ========================================== */
+  const currencyPills = document.querySelectorAll('.currency-pill');
+  currencyPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      currencyPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      showToast(`Currency changed to ${pill.textContent.trim()}`);
+    });
+  });
+
+  const settingsDarkToggle = document.getElementById('settings-dark-toggle');
+  if (settingsDarkToggle) {
+    const isDark = htmlTag.getAttribute('data-theme') === 'dark';
+    settingsDarkToggle.checked = isDark;
+
+    settingsDarkToggle.addEventListener('change', () => {
+      const newTheme = settingsDarkToggle.checked ? 'dark' : 'light';
+      htmlTag.setAttribute('data-theme', newTheme);
+      localStorage.setItem('finly-theme', newTheme);
+      updateThemeIcon(newTheme);
+      showToast(`Switched to ${newTheme} mode`);
+    });
+  }
+
+  const btnSaveSettings = document.getElementById('btn-save-settings');
+  if (btnSaveSettings) {
+    btnSaveSettings.addEventListener('click', () => {
+      const nameVal = document.getElementById('settings-display-name')?.value || 'Rahim Ali Fahryan';
+      const emailVal = document.getElementById('settings-email')?.value || 'fahryan.rahim9@gmail.com';
+      
+      setSessionUser({ name: nameVal, email: emailVal }, true);
+      showToast('Settings saved successfully!');
+    });
+  }
+
+  const btnChangePassword = document.getElementById('btn-change-password');
+  if (btnChangePassword) {
+    btnChangePassword.addEventListener('click', () => {
+      showToast('Password reset link sent to your email.');
+    });
+  }
+
+  const btnResetDemoData = document.getElementById('btn-reset-demo-data');
+  if (btnResetDemoData) {
+    btnResetDemoData.addEventListener('click', () => {
+      showToast('Demo data reset to default settings.');
+    });
+  }
+
   // Initial render
   renderBalance();
 });
