@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finly - Financial Dashboard</title>
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      const isLoggedIn = sessionStorage.getItem('finly_logged_in') || localStorage.getItem('finly_logged_in');
+      if (!isLoggedIn) {
+        window.location.href = 'index.html';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#16181D"/>
+              <path d="M16 8C16 12 12.5 16 8 16C12.5 16 16 20 16 24C16 20 19.5 16 24 16C19.5 16 16 12 16 8Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M21 9.5H25M23 7.5V11.5" stroke="white" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="10" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span>Finly</span>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li class="nav-item active"><a href="dashboard.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="wallet.html"><i class="ph ph-wallet"></i> Wallet</a></li>
+            <li class="nav-item"><a href="cards.html"><i class="ph ph-credit-card"></i> Cards</a></li>
+            <li class="nav-item"><a href="transactions.html"><i class="ph ph-arrows-left-right"></i> Transactions</a></li>
+            <li class="nav-item"><a href="analytics.html"><i class="ph ph-chart-line-up"></i> Analytics</a></li>
+            <li class="nav-item"><a href="investments.html"><i class="ph ph-trend-up"></i> Investments</a></li>
+            <li class="nav-item"><a href="budgets.html"><i class="ph ph-piggy-bank"></i> Budgets</a></li>
+            <li class="nav-item"><a href="reports.html"><i class="ph ph-file-text"></i> Reports</a></li>
+            <li class="nav-item"><a href="#"><i class="ph ph-gear"></i> Settings</a></li>
+            <li class="nav-item"><a href="#" id="sidebar-logout" style="color: #ef4444;"><i class="ph ph-sign-out"></i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="upgrade-card">
+        <p>Upgrade to Finly Pro for unlimited insights.</p>
+        <button class="btn-upgrade">Upgrade</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="header">
+        <div class="header-greeting">
+          <h1>Good morning, Alex</h1>
+          <p>Here's your snapshot.</p>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Search transactions, cards...">
+            <span class="search-shortcut">&#8984;K</span>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle" title="Toggle dark/light theme">
+            <i class="ph ph-moon"></i>
+          </button>
+
+          <button class="icon-btn" id="notif-btn" title="Notifications">
+            <i class="ph ph-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <button class="icon-btn" id="logout-btn" title="Sign Out">
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+          <div class="avatar-badge" title="RAHIM ALI FAHRYAN">RA</div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD BODY (3 COLUMNS) -->
+      <main class="dashboard-body dashboard-grid">
+        
+        <!-- CENTER & LEFT MAIN COLUMN -->
+        <div class="center-content">
+          
+          <!-- HERO TOTAL BALANCE CARD -->
+          <section class="hero-card">
+            <div class="hero-top">
+              <span class="hero-label">Total Balance</span>
+              <div class="hero-top-right">
+                <span class="hero-tag">USD &middot; MAIN</span>
+                <span class="hero-card-num">&bull;&bull;&bull;&bull; 2514</span>
+              </div>
+            </div>
+            
+            <div class="hero-balance-row">
+              <h2 class="hero-balance" id="total-balance-text">$24,568.32</h2>
+              <button class="btn-eye" id="toggle-privacy-btn" title="Toggle balance privacy">
+                <i class="ph ph-eye-slash"></i>
+              </button>
+            </div>
+
+            <div class="hero-badge-row">
+              <span class="badge-trend-pill"><i class="ph ph-arrow-up-right"></i> +12.4%</span>
+              <span class="hero-subtext">vs. last month</span>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn-hero-pill" id="btn-send"><i class="ph ph-paper-plane-tilt"></i> Send</button>
+              <button class="btn-hero-pill" id="btn-transfer"><i class="ph ph-arrows-left-right"></i> Transfer</button>
+              <button class="btn-hero-pill" id="btn-topup"><i class="ph ph-lightning"></i> Top up</button>
+              <button class="btn-hero-pill" id="btn-addcard"><i class="ph ph-plus"></i> Add card</button>
+            </div>
+          </section>
+
+          <!-- KPI SUMMARY GRID (4 CARDS) -->
+          <section class="kpi-grid">
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-blue"></span>
+                  <span class="kpi-title">Income</span>
+                </div>
+                <span class="kpi-change up">&nearr; 6.2%</span>
+              </div>
+              <div class="kpi-value">$8,420.50</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,20 Q25,5 50,15 T100,8" fill="none" stroke="#3b82f6" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-red"></span>
+                  <span class="kpi-title">Expenses</span>
+                </div>
+                <span class="kpi-change up">&nearr; 3.1%</span>
+              </div>
+              <div class="kpi-value">$1,602.21</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,15 Q25,22 50,10 T100,18" fill="none" stroke="#ef4444" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-green"></span>
+                  <span class="kpi-title">Savings</span>
+                </div>
+                <span class="kpi-change up">&nearr; 8.4%</span>
+              </div>
+              <div class="kpi-value">$6,818.29</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,18 Q25,10 50,14 T100,4" fill="none" stroke="#10b981" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-purple"></span>
+                  <span class="kpi-title">Investments</span>
+                </div>
+                <span class="kpi-change up">&nearr; 0.33%</span>
+              </div>
+              <div class="kpi-value">$32,780.00</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,12 Q25,18 50,8 T100,12" fill="none" stroke="#a855f7" stroke-width="2"/>
+              </svg>
+            </div>
+          </section>
+
+          <!-- FINANCIAL ANALYTICS CHART CARD -->
+          <section class="card analytics-card">
+            <div class="analytics-header">
+              <div class="analytics-title">
+                <h2>Financial Analytics</h2>
+                <p>Income, expenses, and savings over time</p>
+              </div>
+
+              <div class="analytics-tabs">
+                <button class="tab-btn" data-range="weekly">Weekly</button>
+                <button class="tab-btn active" data-range="monthly">Monthly</button>
+                <button class="tab-btn" data-range="yearly">Yearly</button>
+              </div>
+            </div>
+
+            <div class="chart-legend">
+              <div class="legend-item"><span class="dot-indicator dot-blue"></span> Income</div>
+              <div class="legend-item"><span class="dot-indicator dot-red"></span> Expenses</div>
+              <div class="legend-item"><span class="dot-indicator dot-green"></span> Savings</div>
+            </div>
+
+            <div class="chart-container">
+              <svg width="100%" height="100%" viewBox="0 0 600 200" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradIncome" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
+                  </linearGradient>
+                  <linearGradient id="gradSavings" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
+                  </linearGradient>
+                  <linearGradient id="gradExpenses" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.2"/>
+                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                
+                <!-- Horizontal Grid Lines -->
+                <line x1="0" y1="40" x2="600" y2="40" stroke="var(--card-border)" stroke-dasharray="4"/>
+                <line x1="0" y1="90" x2="600" y2="90" stroke="var(--card-border)" stroke-dasharray="4"/>
+                <line x1="0" y1="140" x2="600" y2="140" stroke="var(--card-border)" stroke-dasharray="4"/>
+
+                <!-- Area & Paths -->
+                <!-- Income -->
+                <path d="M0,100 C50,80 100,70 150,75 C200,80 250,60 300,55 C350,50 400,60 450,50 C500,40 550,45 600,35 L600,180 L0,180 Z" fill="url(#gradIncome)"/>
+                <path d="M0,100 C50,80 100,70 150,75 C200,80 250,60 300,55 C350,50 400,60 450,50 C500,40 550,45 600,35" fill="none" stroke="#3b82f6" stroke-width="3"/>
+
+                <!-- Savings -->
+                <path d="M0,140 C50,135 100,130 150,130 C200,130 250,110 300,110 C350,115 400,110 450,105 C500,105 550,100 600,98 L600,180 L0,180 Z" fill="url(#gradSavings)"/>
+                <path d="M0,140 C50,135 100,130 150,130 C200,130 250,110 300,110 C350,115 400,110 450,105 C500,105 550,100 600,98" fill="none" stroke="#10b981" stroke-width="2.5"/>
+
+                <!-- Expenses -->
+                <path d="M0,160 C50,155 100,150 150,145 C200,140 250,145 300,140 C350,142 400,148 450,142 C500,140 550,145 600,140 L600,180 L0,180 Z" fill="url(#gradExpenses)"/>
+                <path d="M0,160 C50,155 100,150 150,145 C200,140 250,145 300,140 C350,142 400,148 450,142 C500,140 550,145 600,140" fill="none" stroke="#ef4444" stroke-width="2"/>
+              </svg>
+            </div>
+          </section>
+
+          <!-- SPENDING & BUDGET PROGRESS 2-COLUMN SPLIT -->
+          <section class="analytics-subgrid">
+            
+            <!-- Spending Donut Card -->
+            <div class="card spending-card">
+              <div class="spending-card-header">
+                <div>
+                  <h3>Spending</h3>
+                  <p>By category, this month</p>
+                </div>
+                <a href="#" class="btn-link">View all</a>
+              </div>
+
+              <div class="donut-wrapper">
+                <svg width="150" height="150" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="var(--hover-bg)" stroke-width="12"/>
+                  <!-- Shopping (Purple) ~70% -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#a855f7" stroke-width="12" stroke-dasharray="160 80" stroke-dashoffset="0"/>
+                  <!-- Bills (Blue) ~10% -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="30 210" stroke-dashoffset="-160"/>
+                  <!-- Food (Yellow) ~8% -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#f59e0b" stroke-width="12" stroke-dasharray="20 220" stroke-dashoffset="-190"/>
+                  <!-- Healthcare (Green) ~6% -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#10b981" stroke-width="12" stroke-dasharray="15 225" stroke-dashoffset="-210"/>
+                  <!-- Transportation (Red) ~4% -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#ef4444" stroke-width="12" stroke-dasharray="10 230" stroke-dashoffset="-225"/>
+                </svg>
+                <div class="donut-center-text">
+                  <span>Total</span>
+                  <strong>$1,602.21</strong>
+                </div>
+              </div>
+
+              <div class="category-legend-list">
+                <div class="category-item">
+                  <div class="category-label"><span class="dot-indicator dot-purple"></span> Shopping</div>
+                  <span class="category-val">$1,250.00</span>
+                </div>
+                <div class="category-item">
+                  <div class="category-label"><span class="dot-indicator dot-blue"></span> Bills</div>
+                  <span class="category-val">$142.00</span>
+                </div>
+                <div class="category-item">
+                  <div class="category-label"><span class="dot-indicator" style="background:#f59e0b"></span> Food</div>
+                  <span class="category-val">$84.32</span>
+                </div>
+                <div class="category-item">
+                  <div class="category-label"><span class="dot-indicator dot-green"></span> Healthcare</div>
+                  <span class="category-val">$88.50</span>
+                </div>
+                <div class="category-item">
+                  <div class="category-label"><span class="dot-indicator dot-red"></span> Transportation</div>
+                  <span class="category-val">$37.39</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Budget Progress Card -->
+            <div class="card budget-card">
+              <div class="spending-card-header">
+                <div>
+                  <h3>Budget progress</h3>
+                  <p>This month</p>
+                </div>
+                <a href="#" class="btn-link">Manage</a>
+              </div>
+
+              <div class="budget-list">
+                <div class="budget-item">
+                  <div class="budget-info">
+                    <span class="budget-name">Food</span>
+                    <span class="budget-val">$780.00 / $800.00</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fill-blue" style="width: 97%;"></div>
+                  </div>
+                </div>
+
+                <div class="budget-item">
+                  <div class="budget-info">
+                    <span class="budget-name">Shopping</span>
+                    <span class="budget-val">$1,400.00 / $1,200.00</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fill-red" style="width: 100%;"></div>
+                  </div>
+                  <span class="over-budget-tag">Over by $200.00</span>
+                </div>
+
+                <div class="budget-item">
+                  <div class="budget-info">
+                    <span class="budget-name">Entertainment</span>
+                    <span class="budget-val">$425.00 / $600.00</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fill-blue" style="width: 70%;"></div>
+                  </div>
+                </div>
+
+                <div class="budget-item">
+                  <div class="budget-info">
+                    <span class="budget-name">Travel</span>
+                    <span class="budget-val">$320.00 / $500.00</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fill-blue" style="width: 64%;"></div>
+                  </div>
+                </div>
+
+                <div class="budget-item">
+                  <div class="budget-info">
+                    <span class="budget-name">Bills</span>
+                    <span class="budget-val">$952.00 / $950.00</span>
+                  </div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fill-blue" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- RECENT TRANSACTIONS TABLE CARD -->
+          <section class="card tx-card">
+            <div class="tx-header">
+              <div class="tx-title">
+                <h3>Recent transactions</h3>
+                <span class="badge-count" id="tx-count">8 results</span>
+              </div>
+
+              <div class="tx-controls">
+                <div class="filter-pills" id="status-filter-pills">
+                  <button class="pill-btn active" data-status="all">All</button>
+                  <button class="pill-btn" data-status="Completed">Completed</button>
+                  <button class="pill-btn" data-status="Pending">Pending</button>
+                  <button class="pill-btn" data-status="Failed">Failed</button>
+                </div>
+
+                <button class="btn-secondary" id="export-csv-btn">
+                  <i class="ph ph-download-simple"></i> CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="tx-table" id="transactions-table">
+                <thead>
+                  <tr>
+                    <th>MERCHANT</th>
+                    <th>CATEGORY</th>
+                    <th>DATE</th>
+                    <th>STATUS</th>
+                    <th>AMOUNT</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-apple-logo"></i></div>
+                        Apple Store
+                      </div>
+                    </td>
+                    <td>Shopping</td>
+                    <td>Jul 18, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount">-$1,290.00</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-shopping-bag font-icon"></i></div>
+                        Whole Foods
+                      </div>
+                    </td>
+                    <td>Food</td>
+                    <td>Jul 18, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount">-$84.32</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-bank"></i></div>
+                        Salary &mdash; Acme Inc
+                      </div>
+                    </td>
+                    <td>Income</td>
+                    <td>Jul 16, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount positive">+$8,420.50</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-film-strip"></i></div>
+                        Netflix
+                      </div>
+                    </td>
+                    <td>Entertainment</td>
+                    <td>Jul 17, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount">-$15.99</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Pending">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-car"></i></div>
+                        Uber
+                      </div>
+                    </td>
+                    <td>Transportation</td>
+                    <td>Jul 17, 2026</td>
+                    <td><span class="status-badge status-pending">Pending</span></td>
+                    <td class="tx-amount">-$22.40</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-lightning"></i></div>
+                        ConEdson
+                      </div>
+                    </td>
+                    <td>Bills</td>
+                    <td>Jul 16, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount">-$142.00</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Failed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-spotify-logo"></i></div>
+                        Spotify
+                      </div>
+                    </td>
+                    <td>Entertainment</td>
+                    <td>Jul 15, 2026</td>
+                    <td><span class="status-badge status-failed">Failed</span></td>
+                    <td class="tx-amount">-$8.99</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+
+                  <tr data-status="Completed">
+                    <td>
+                      <div class="tx-merchant">
+                        <div class="merchant-icon"><i class="ph ph-first-aid-kit"></i></div>
+                        CVS Pharmacy
+                      </div>
+                    </td>
+                    <td>Healthcare</td>
+                    <td>Jul 14, 2026</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="tx-amount">-$38.50</td>
+                    <td><i class="ph ph-dots-three" style="cursor:pointer"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- RIGHT PANEL SIDEBAR -->
+        <aside class="right-panel">
+          
+          <!-- MY CARDS CARD -->
+          <div class="card cards-section">
+            <div class="cards-header">
+              <h3>My cards</h3>
+              <button class="btn-add-card-pill" id="btn-open-add-card"><i class="ph ph-plus"></i> Add card</button>
+            </div>
+
+            <div id="cards-list-container" class="cards-list">
+              <!-- Card 1: Dark Solid Matte Card (Visa) -->
+              <div class="credit-card card-dark">
+                <div class="card-top">
+                  <div>
+                    <span class="card-label">BALANCE</span>
+                    <div class="card-balance-val">$12,480.50</div>
+                  </div>
+                  <div class="card-top-icons">
+                    <i class="ph ph-wifi-high"></i>
+                    <i class="ph ph-dots-three-vertical"></i>
+                  </div>
+                </div>
+                <div class="card-num">0818 7183 0713 2514</div>
+                <div class="card-bottom">
+                  <div>
+                    <span class="card-label">CARDHOLDER</span>
+                    <div class="card-holder-name">Alex Morgan</div>
+                  </div>
+                  <div>
+                    <span class="card-label">EXPIRES</span>
+                    <div class="card-exp-val">09/28</div>
+                  </div>
+                  <div class="card-brand">
+                    <svg class="card-logo visa-logo" width="56" height="18" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21.5 1L11.5 27.6L7.1 4.1C6.7 2.2 5.1 0.9 3.2 0.7C1.9 0.5 0.1 0.4 0 0.4L0.1 1.2C1.6 1.5 4.3 2.2 5.9 3.1C6.9 3.7 7.2 4.4 7.5 5.7L14.7 37.8H24.8L40.2 1H30.3L21.5 1ZM57.4 1L50.4 37.8H60.2L67.2 1H57.4ZM78.5 10.9C78.4 6.7 72.6 6.5 72.8 4.6C72.9 4 73.5 3.3 74.8 3.1C75.4 3 77.2 2.9 79.1 3.9L80.5 0.7C79.4 0.3 78 0 76.2 0C72.1 0 69.2 2.2 69.2 5.3C69.1 7.6 71.2 8.8 72.8 9.6C74.4 10.4 75 10.9 75 11.6C75 12.7 73.7 13.1 72.5 13.2C70.4 13.2 69.2 12.6 68.2 12.2L66.8 15.6C68 16.1 70.1 16.5 72.3 16.5C76.7 16.5 79.5 14.4 79.6 11.1Z M96.6 1H88.7C86.9 1 85.3 2.1 84.7 3.7L71.8 37.8H81.7L83.7 32.3H95.8L96.9 37.8H105.6L96.6 1ZM86.5 19.4L90.7 7.8L94.2 19.4H86.5Z" fill="white"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Vibrant Solid Royal Blue Card (Mastercard) -->
+              <div class="credit-card card-blue">
+                <div class="card-top">
+                  <div>
+                    <span class="card-label">BALANCE</span>
+                    <div class="card-balance-val">$4,820.10</div>
+                  </div>
+                  <div class="card-top-icons">
+                    <i class="ph ph-wifi-high"></i>
+                    <i class="ph ph-dots-three-vertical"></i>
+                  </div>
+                </div>
+                <div class="card-num">4021 9902 6412 8830</div>
+                <div class="card-bottom">
+                  <div>
+                    <span class="card-label">CARDHOLDER</span>
+                    <div class="card-holder-name">Alex Morgan</div>
+                  </div>
+                  <div>
+                    <span class="card-label">EXPIRES</span>
+                    <div class="card-exp-val">04/27</div>
+                  </div>
+                  <div class="card-brand">
+                    <svg class="card-logo mastercard-logo" width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="12" fill="#EB001B"/>
+                      <circle cx="26" cy="12" r="12" fill="#F79E1B" fill-opacity="0.92"/>
+                      <path d="M19 4.34863C20.9161 6.30722 22.1053 8.99596 22.1053 11.9707C22.1053 14.9455 20.9161 17.6342 19 19.5928C17.0839 17.6342 15.8947 14.9455 15.8947 11.9707C15.8947 8.99596 17.0839 6.30722 19 4.34863Z" fill="#FF5F00"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUICK TRANSFER CARD -->
+          <div class="card wallet-transfer-card">
+            <div class="transfer-header">
+              <h3>Quick transfer</h3>
+              <a href="#" class="btn-link">See all</a>
+            </div>
+
+            <div class="avatar-row">
+              <div class="avatar-item active" data-name="Sarah">
+                <div class="avatar-circle avatar-orange">S</div>
+                <span class="avatar-name">Sarah</span>
+              </div>
+              <div class="avatar-item" data-name="Miguel">
+                <div class="avatar-circle avatar-purple">M</div>
+                <span class="avatar-name">Miguel</span>
+              </div>
+              <div class="avatar-item" data-name="Aiko">
+                <div class="avatar-circle avatar-teal">A</div>
+                <span class="avatar-name">Aiko</span>
+              </div>
+              <div class="avatar-item" data-name="Priya">
+                <div class="avatar-circle avatar-pink">P</div>
+                <span class="avatar-name">Priya</span>
+              </div>
+              <div class="avatar-item" data-name="Jonas">
+                <div class="avatar-circle avatar-blue">J</div>
+                <span class="avatar-name">Jonas</span>
+              </div>
+              <div class="avatar-item add-new">
+                <div class="avatar-circle avatar-new"><i class="ph ph-plus"></i></div>
+                <span class="avatar-name">New</span>
+              </div>
+            </div>
+
+            <form id="quick-transfer-form">
+              <div class="input-group">
+                <label for="transfer-note" class="input-label-uppercase">NOTE (OPTIONAL)</label>
+                <input type="text" id="transfer-note" class="transfer-field" placeholder="Dinner split">
+              </div>
+
+              <div class="input-group">
+                <label for="transfer-amount" class="input-label-uppercase">AMOUNT</label>
+                <input type="text" id="transfer-amount" class="transfer-field" placeholder="$ 0.00">
+              </div>
+
+              <div class="transfer-actions-row">
+                <button type="button" class="btn-pill-draft" id="btn-save-draft">Save as draft</button>
+                <button type="submit" class="btn-pill-send">Send money</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- INVESTMENTS CARD -->
+          <div class="card investments-card">
+            <div class="investments-header">
+              <h3>Investments</h3>
+              <span class="badge-trend positive"><i class="ph ph-arrow-up-right"></i> +0.33% today</span>
+            </div>
+
+            <div class="invest-val-row">
+              <div class="invest-val">$32,780.00</div>
+              <span class="invest-sub">+$108.40 today</span>
+            </div>
+
+            <div class="invest-actions">
+              <button class="btn-invest-tab active">Buy</button>
+              <button class="btn-invest-tab">Sell</button>
+            </div>
+
+            <!-- Asset Allocation Bar -->
+            <div class="alloc-bar">
+              <div class="alloc-seg" style="width: 38%; background: #3b82f6;" title="AAPL 38%"></div>
+              <div class="alloc-seg" style="width: 26%; background: #8b5cf6;" title="MSFT 26%"></div>
+              <div class="alloc-seg" style="width: 20%; background: #f59e0b;" title="BTC 20%"></div>
+              <div class="alloc-seg" style="width: 16%; background: #10b981;" title="VOO 16%"></div>
+            </div>
+
+            <div class="asset-list">
+              <div class="asset-item">
+                <div class="asset-left">
+                  <span class="asset-symbol">AAPL</span>
+                  <span class="asset-name">Apple Inc.</span>
+                </div>
+                <div class="asset-right">
+                  <span class="asset-val">$12,480.00</span>
+                  <span class="asset-change up">+1.73%</span>
+                </div>
+              </div>
+
+              <div class="asset-item">
+                <div class="asset-left">
+                  <span class="asset-symbol">MSFT</span>
+                  <span class="asset-name">Microsoft</span>
+                </div>
+                <div class="asset-right">
+                  <span class="asset-val">$8,640.00</span>
+                  <span class="asset-change up">+0.82%</span>
+                </div>
+              </div>
+
+              <div class="asset-item">
+                <div class="asset-left">
+                  <span class="asset-symbol">BTC</span>
+                  <span class="asset-name">Bitcoin</span>
+                </div>
+                <div class="asset-right">
+                  <span class="asset-val">$6,420.00</span>
+                  <span class="asset-change down">-2.11%</span>
+                </div>
+              </div>
+
+              <div class="asset-item">
+                <div class="asset-left">
+                  <span class="asset-symbol">VOO</span>
+                  <span class="asset-name">Vanguard S&P 500</span>
+                </div>
+                <div class="asset-right">
+                  <span class="asset-val">$5,240.00</span>
+                  <span class="asset-change up">+0.41%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </main>
+
+      <!-- DASHBOARD FOOTER -->
+      <footer class="dashboard-footer">
+        <div>&copy; 2026 Finly. Mock data &mdash; for demo purposes only.</div>
+        <div>Designed with Precision for ST Pro and Phosphor Icons.</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- TOP UP MODAL -->
+  <div class="modal-overlay" id="topup-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Top Up Account Balance</h3>
+        <button class="btn-close" id="btn-close-topup">&times;</button>
+      </div>
+      <form class="signin-form" id="topup-form">
+        <div class="input-group">
+          <label>Select Amount</label>
+          <div class="quick-amounts" style="display:flex;gap:0.5rem;margin-bottom:0.5rem">
+            <button type="button" class="btn-secondary amount-chip" data-amount="100">+$100</button>
+            <button type="button" class="btn-secondary amount-chip active" data-amount="500">+$500</button>
+            <button type="button" class="btn-secondary amount-chip" data-amount="1000">+$1,000</button>
+            <button type="button" class="btn-secondary amount-chip" data-amount="2500">+$2,500</button>
+          </div>
+          <input type="number" class="transfer-input" id="topup-amount-input" value="500" placeholder="Custom Amount ($)" min="1" step="any" required>
+        </div>
+        <div class="input-group">
+          <label for="topup-source-select">Funding Source</label>
+          <select class="transfer-input" id="topup-source-select">
+            <option value="Visa 2514">Visa ending in 2514 ($12,480.50)</option>
+            <option value="Mastercard 8830">Mastercard ending in 8830 ($4,820.10)</option>
+            <option value="Linked Bank">Chase Bank Checking (**** 9012)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:1rem">Confirm Top Up</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SEND / TRANSFER MODAL -->
+  <div class="modal-overlay" id="send-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Send Money / Transfer</h3>
+        <button class="btn-close" id="btn-close-send">&times;</button>
+      </div>
+      <form class="signin-form" id="send-form">
+        <div class="input-group">
+          <label for="send-recipient-input">Recipient Name / Email</label>
+          <input type="text" class="transfer-input" id="send-recipient-input" placeholder="e.g. Sarah, alex@finly.app" required>
+        </div>
+        <div class="input-group">
+          <label for="send-amount-input">Amount ($)</label>
+          <input type="number" class="transfer-input" id="send-amount-input" placeholder="0.00" min="0.01" step="0.01" required>
+        </div>
+        <div class="input-group">
+          <label for="send-category-select">Category</label>
+          <select class="transfer-input" id="send-category-select">
+            <option value="Shopping">Shopping</option>
+            <option value="Food">Food</option>
+            <option value="Bills">Bills</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Transfer">Direct Transfer</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:1rem">Send Payment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD CARD MODAL -->
+  <div class="modal-overlay" id="add-card-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add New Payment Card</h3>
+        <button class="btn-close" id="btn-close-modal">&times;</button>
+      </div>
+      <form class="signin-form" id="add-card-form">
+        <div class="input-group">
+          <label for="card-holder-input">Cardholder Name</label>
+          <input type="text" class="transfer-input" id="card-holder-input" placeholder="ALEX MORGAN" required>
+        </div>
+        <div class="input-group">
+          <label for="card-num-input">Card Number</label>
+          <input type="text" class="transfer-input" id="card-num-input" placeholder="4021 9902 8412 0000" maxlength="19" required>
+        </div>
+        <div style="display:flex;gap:1rem;">
+          <div class="input-group" style="flex:1">
+            <label for="card-exp-input">Expires (MM/YY)</label>
+            <input type="text" class="transfer-input" id="card-exp-input" placeholder="12/28" maxlength="5" required>
+          </div>
+          <div class="input-group" style="flex:1">
+            <label for="card-cvv-input">CVV</label>
+            <input type="password" class="transfer-input" id="card-cvv-input" placeholder="123" maxlength="4" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:1rem">Add Card</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

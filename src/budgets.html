@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finly - Budgets</title>
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      const isLoggedIn = sessionStorage.getItem('finly_logged_in') || localStorage.getItem('finly_logged_in');
+      if (!isLoggedIn) {
+        window.location.href = 'index.html';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#16181D"/>
+              <path d="M16 8C16 12 12.5 16 8 16C12.5 16 16 20 16 24C16 20 19.5 16 24 16C19.5 16 16 12 16 8Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M21 9.5H25M23 7.5V11.5" stroke="white" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="10" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span>Finly</span>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="dashboard.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="wallet.html"><i class="ph ph-wallet"></i> Wallet</a></li>
+            <li class="nav-item"><a href="cards.html"><i class="ph ph-credit-card"></i> Cards</a></li>
+            <li class="nav-item"><a href="transactions.html"><i class="ph ph-arrows-left-right"></i> Transactions</a></li>
+            <li class="nav-item"><a href="analytics.html"><i class="ph ph-chart-line-up"></i> Analytics</a></li>
+            <li class="nav-item"><a href="investments.html"><i class="ph ph-trend-up"></i> Investments</a></li>
+            <li class="nav-item active"><a href="budgets.html"><i class="ph ph-piggy-bank"></i> Budgets</a></li>
+            <li class="nav-item"><a href="reports.html"><i class="ph ph-file-text"></i> Reports</a></li>
+            <li class="nav-item"><a href="#"><i class="ph ph-gear"></i> Settings</a></li>
+            <li class="nav-item"><a href="#" id="sidebar-logout" style="color: #ef4444;"><i class="ph ph-sign-out"></i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="upgrade-card">
+        <p>Upgrade to <strong>Finly Pro</strong> for unlimited insights.</p>
+        <button class="btn-upgrade">Upgrade</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="header">
+        <div class="header-greeting">
+          <h1>Budgets</h1>
+          <p>Monthly limits and long-term goals, gently enforced.</p>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Search transactions, cards...">
+            <span class="search-shortcut">&#8984;K</span>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle" title="Toggle dark/light theme">
+            <i class="ph ph-moon"></i>
+          </button>
+
+          <button class="icon-btn" id="notif-btn" title="Notifications">
+            <i class="ph ph-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <button class="icon-btn" id="logout-btn" title="Sign Out">
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+          <div class="avatar-badge" title="RAHIM ALI FAHRYAN">RA</div>
+        </div>
+      </header>
+
+      <!-- BUDGETS PAGE BODY -->
+      <main class="dashboard-body" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 1680px; width: 100%;">
+        
+        <div class="budgets-grid">
+          
+          <!-- LEFT COLUMN -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- 1. TOTAL THIS MONTH CARD -->
+            <div class="budget-card">
+              <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.06em; color: var(--text-muted);">
+                TOTAL THIS MONTH
+              </div>
+              <div class="budget-total-val">$3,666.00</div>
+              <div class="budget-total-sub">of $4,300.00 - 85% used</div>
+
+              <div class="budget-main-bar">
+                <div class="budget-main-bar-fill" style="width: 85%;"></div>
+              </div>
+
+              <div class="budget-stats-boxes">
+                <div class="budget-stat-box">
+                  <div class="budget-stat-label">Under budget</div>
+                  <div class="budget-stat-num">4</div>
+                </div>
+                <div class="budget-stat-box">
+                  <div class="budget-stat-label">Over budget</div>
+                  <div class="budget-stat-num">1</div>
+                </div>
+              </div>
+
+              <div class="budget-alert-banner">
+                <i class="ph ph-warning-circle"></i>
+                <div>You're over budget in <strong>Shopping</strong> by <strong>$299.00</strong>. Raise the limit from the panel on the right.</div>
+              </div>
+            </div>
+
+            <!-- 2. SPENDING PACE CARD -->
+            <div class="budget-card">
+              <div class="budget-card-title">
+                <i class="ph ph-trend-down" style="color: #2563eb;"></i>
+                Spending pace
+              </div>
+              <div class="budget-card-subtitle">
+                You're <strong>running hot</strong> &mdash; 85% used with 77% of the month to go.
+              </div>
+
+              <div class="spending-pace-chart">
+                <div class="pace-shaded-area">
+                  <span class="pace-label-today">TODAY</span>
+                </div>
+                <span class="pace-label-end">End of month</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- 3. BUDGET PROGRESS CARD -->
+            <div class="budget-card">
+              <div class="budget-card-header">
+                <div>
+                  <div class="budget-card-title">Budget progress</div>
+                  <div class="budget-card-subtitle">This month</div>
+                </div>
+                <a href="#" style="font-size: 0.85rem; font-weight: 600; color: #2563eb;">Manage</a>
+              </div>
+
+              <div class="budget-progress-list">
+                <!-- Food -->
+                <div>
+                  <div class="budget-item-top">
+                    <span class="budget-item-name">Food</span>
+                    <span class="budget-item-amounts">$780.00 / $800.00</span>
+                  </div>
+                  <div class="budget-item-bar">
+                    <div class="budget-bar-fill blue" style="width: 97.5%;"></div>
+                  </div>
+                </div>
+
+                <!-- Shopping (Over budget) -->
+                <div>
+                  <div class="budget-item-top">
+                    <span class="budget-item-name">Shopping</span>
+                    <span class="budget-item-amounts">$1,499.00 / $1,200.00</span>
+                  </div>
+                  <span class="budget-over-tag">Over by $299.00</span>
+                  <div class="budget-item-bar">
+                    <div class="budget-bar-fill red" style="width: 100%;"></div>
+                  </div>
+                </div>
+
+                <!-- Entertainment -->
+                <div>
+                  <div class="budget-item-top">
+                    <span class="budget-item-name">Entertainment</span>
+                    <span class="budget-item-amounts">$405.00 / $500.00</span>
+                  </div>
+                  <div class="budget-item-bar">
+                    <div class="budget-bar-fill blue" style="width: 81%;"></div>
+                  </div>
+                </div>
+
+                <!-- Travel -->
+                <div>
+                  <div class="budget-item-top">
+                    <span class="budget-item-name">Travel</span>
+                    <span class="budget-item-amounts">$320.00 / $800.00</span>
+                  </div>
+                  <div class="budget-item-bar">
+                    <div class="budget-bar-fill blue" style="width: 40%;"></div>
+                  </div>
+                </div>
+
+                <!-- Bills -->
+                <div>
+                  <div class="budget-item-top">
+                    <span class="budget-item-name">Bills</span>
+                    <span class="budget-item-amounts">$662.00 / $900.00</span>
+                  </div>
+                  <div class="budget-item-bar">
+                    <div class="budget-bar-fill blue" style="width: 73.5%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. SAVINGS GOALS CARD -->
+            <div class="budget-card">
+              <div class="budget-card-header">
+                <div class="budget-card-title">
+                  <i class="ph ph-piggy-bank" style="color: #2563eb;"></i>
+                  Savings goals
+                </div>
+                <a href="#" id="btn-add-goal" style="font-size: 0.85rem; font-weight: 600; color: #2563eb;">+ New goal</a>
+              </div>
+
+              <div class="savings-goals-grid">
+                <!-- Goal 1 -->
+                <div class="savings-goal-card">
+                  <div>
+                    <div class="goal-card-header">
+                      <span class="goal-title">Emergency fund</span>
+                      <span class="goal-date">SEP 2026</span>
+                    </div>
+                    <div class="goal-val">$8,200.00</div>
+                    <div class="goal-sub">of $12,000.00 &middot; 68%</div>
+                    <div class="goal-bar">
+                      <div class="goal-bar-fill blue" style="width: 68%;"></div>
+                    </div>
+                  </div>
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn btn-add" data-goal="Emergency fund">Add funds</button>
+                    <button class="btn-goal-act btn-remove" data-goal="Emergency fund">Remove</button>
+                  </div>
+                </div>
+
+                <!-- Goal 2 -->
+                <div class="savings-goal-card">
+                  <div>
+                    <div class="goal-card-header">
+                      <span class="goal-title">Japan 2027</span>
+                      <span class="goal-date">FEB 2027</span>
+                    </div>
+                    <div class="goal-val">$2,400.00</div>
+                    <div class="goal-sub">of $6,000.00 &middot; 40%</div>
+                    <div class="goal-bar">
+                      <div class="goal-bar-fill orange" style="width: 40%;"></div>
+                    </div>
+                  </div>
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn btn-add" data-goal="Japan 2027">Add funds</button>
+                    <button class="btn-goal-act btn-remove" data-goal="Japan 2027">Remove</button>
+                  </div>
+                </div>
+
+                <!-- Goal 3 -->
+                <div class="savings-goal-card">
+                  <div>
+                    <div class="goal-card-header">
+                      <span class="goal-title">New MacBook Pro</span>
+                      <span class="goal-date">NOV 2026</span>
+                    </div>
+                    <div class="goal-val">$1,750.00</div>
+                    <div class="goal-sub">of $3,500.00 &middot; 50%</div>
+                    <div class="goal-bar">
+                      <div class="goal-bar-fill green" style="width: 50%;"></div>
+                    </div>
+                  </div>
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn btn-add" data-goal="New MacBook Pro">Add funds</button>
+                    <button class="btn-goal-act btn-remove" data-goal="New MacBook Pro">Remove</button>
+                  </div>
+                </div>
+
+                <!-- Goal 4 -->
+                <div class="savings-goal-card">
+                  <div>
+                    <div class="goal-card-header">
+                      <span class="goal-title">Down payment</span>
+                      <span class="goal-date">2029</span>
+                    </div>
+                    <div class="goal-val">$14,200.00</div>
+                    <div class="goal-sub">of $60,000.00 &middot; 24%</div>
+                    <div class="goal-bar">
+                      <div class="goal-bar-fill cyan" style="width: 24%;"></div>
+                    </div>
+                  </div>
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn btn-add" data-goal="Down payment">Add funds</button>
+                    <button class="btn-goal-act btn-remove" data-goal="Down payment">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- FOOTER INFO -->
+        <footer style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; color: var(--text-subtle); font-size: 0.75rem;">
+          <div>&copy; 2026 Finly. Mock data &mdash; for demo purposes only.</div>
+          <div>Designed with the calm of SF Pro and one Action Blue.</div>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- FLOATING LOVABLE BADGE -->
+  <div class="lovable-badge" onclick="alert('Finly Finance Dashboard - Built with Lovable & SF Pro Aesthetics')">
+    <span>Edit with</span>
+    <div class="lovable-heart"></div>
+    <strong>Lovable</strong>
+    <i class="ph ph-x" style="font-size: 0.65rem; margin-left: 0.2rem;" onclick="event.stopPropagation(); this.parentElement.style.display='none';"></i>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

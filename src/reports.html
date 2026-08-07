@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finly - Reports</title>
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      const isLoggedIn = sessionStorage.getItem('finly_logged_in') || localStorage.getItem('finly_logged_in');
+      if (!isLoggedIn) {
+        window.location.href = 'index.html';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#16181D"/>
+              <path d="M16 8C16 12 12.5 16 8 16C12.5 16 16 20 16 24C16 20 19.5 16 24 16C19.5 16 16 12 16 8Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M21 9.5H25M23 7.5V11.5" stroke="white" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="10" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span>Finly</span>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="dashboard.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="wallet.html"><i class="ph ph-wallet"></i> Wallet</a></li>
+            <li class="nav-item"><a href="cards.html"><i class="ph ph-credit-card"></i> Cards</a></li>
+            <li class="nav-item"><a href="transactions.html"><i class="ph ph-arrows-left-right"></i> Transactions</a></li>
+            <li class="nav-item"><a href="analytics.html"><i class="ph ph-chart-line-up"></i> Analytics</a></li>
+            <li class="nav-item"><a href="investments.html"><i class="ph ph-trend-up"></i> Investments</a></li>
+            <li class="nav-item"><a href="budgets.html"><i class="ph ph-piggy-bank"></i> Budgets</a></li>
+            <li class="nav-item active"><a href="reports.html"><i class="ph ph-file-text"></i> Reports</a></li>
+            <li class="nav-item"><a href="#"><i class="ph ph-gear"></i> Settings</a></li>
+            <li class="nav-item"><a href="#" id="sidebar-logout" style="color: #ef4444;"><i class="ph ph-sign-out"></i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="upgrade-card">
+        <p>Upgrade to <strong>Finly Pro</strong> for unlimited insights.</p>
+        <button class="btn-upgrade">Upgrade</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="header">
+        <div class="header-greeting">
+          <h1>Reports</h1>
+          <p>Statements, exports, and year-to-date summaries.</p>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Search transactions, cards...">
+            <span class="search-shortcut">&#8984;K</span>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle" title="Toggle dark/light theme">
+            <i class="ph ph-moon"></i>
+          </button>
+
+          <button class="icon-btn" id="notif-btn" title="Notifications">
+            <i class="ph ph-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <button class="icon-btn" id="logout-btn" title="Sign Out">
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+          <div class="avatar-badge" title="RAHIM ALI FAHRYAN">RA</div>
+        </div>
+      </header>
+
+      <!-- REPORTS PAGE BODY -->
+      <main class="dashboard-body" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 1680px; width: 100%;">
+        
+        <!-- 1. TOP 4 YTD KPI CARDS -->
+        <div class="reports-kpi-grid">
+          <!-- Card 1 -->
+          <div class="report-kpi-card">
+            <div class="kpi-dot-label">
+              <span class="kpi-dot blue"></span>
+              <span>YTD income</span>
+            </div>
+            <div class="report-kpi-val">$96,120.00</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="report-kpi-card">
+            <div class="kpi-dot-label">
+              <span class="kpi-dot red"></span>
+              <span>YTD expenses</span>
+            </div>
+            <div class="report-kpi-val">$42,090.00</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="report-kpi-card">
+            <div class="kpi-dot-label">
+              <span class="kpi-dot green"></span>
+              <span>YTD savings</span>
+            </div>
+            <div class="report-kpi-val">$54,030.00</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="report-kpi-card">
+            <div class="kpi-dot-label">
+              <span class="kpi-dot purple"></span>
+              <span>Savings rate</span>
+            </div>
+            <div class="report-kpi-val">56%</div>
+          </div>
+        </div>
+
+        <!-- 2. QUICK EXPORT ACTION CARDS GRID -->
+        <div class="reports-actions-grid">
+          <div class="report-action-card" data-report-type="Full Statement PDF">
+            <div class="report-action-icon">
+              <i class="ph ph-file-text"></i>
+            </div>
+            <div>
+              <div class="report-action-title">Full statement</div>
+              <div class="report-action-sub">Every transaction, categorised, PDF.</div>
+            </div>
+          </div>
+
+          <div class="report-action-card" data-report-type="CSV Data Export">
+            <div class="report-action-icon">
+              <i class="ph ph-file-csv"></i>
+            </div>
+            <div>
+              <div class="report-action-title">CSV export</div>
+              <div class="report-action-sub">Raw data for Excel, Numbers, or Sheets.</div>
+            </div>
+          </div>
+
+          <div class="report-action-card" data-report-type="Tax Package PDF Bundle">
+            <div class="report-action-icon">
+              <i class="ph ph-receipt"></i>
+            </div>
+            <div>
+              <div class="report-action-title">Tax package</div>
+              <div class="report-action-sub">1099s, interest, dividends &mdash; bundled.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. MONTHLY STATEMENTS TABLE CARD -->
+        <div class="reports-table-card">
+          <div class="reports-table-header">
+            <div>
+              <div class="reports-table-title">Monthly statements</div>
+              <div class="reports-table-sub">
+                <i class="ph ph-calendar-blank"></i>
+                <span>Automatically generated on the 1st of each month</span>
+              </div>
+            </div>
+
+            <button class="btn-export-all" id="btn-export-all-reports">
+              <i class="ph ph-download-simple"></i>
+              <span>Export all</span>
+            </button>
+          </div>
+
+          <div class="reports-table-wrapper">
+            <table class="reports-table">
+              <thead>
+                <tr>
+                  <th>PERIOD</th>
+                  <th>INCOME</th>
+                  <th>EXPENSES</th>
+                  <th>NET</th>
+                  <th style="text-align: right;">STATEMENT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="reports-period-cell">Dec 2026</td>
+                  <td>$8,500.00</td>
+                  <td>$4,200.00</td>
+                  <td class="reports-net-cell">+$5,300.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Dec 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Nov 2026</td>
+                  <td>$9,200.00</td>
+                  <td>$4,000.00</td>
+                  <td class="reports-net-cell">+$5,200.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Nov 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Oct 2026</td>
+                  <td>$8,900.00</td>
+                  <td>$3,800.00</td>
+                  <td class="reports-net-cell">+$5,100.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Oct 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Sep 2026</td>
+                  <td>$8,300.00</td>
+                  <td>$3,600.00</td>
+                  <td class="reports-net-cell">+$4,700.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Sep 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Aug 2026</td>
+                  <td>$8,600.00</td>
+                  <td>$3,450.00</td>
+                  <td class="reports-net-cell">+$5,150.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Aug 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Jul 2026</td>
+                  <td>$8,420.00</td>
+                  <td>$3,240.00</td>
+                  <td class="reports-net-cell">+$5,180.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Jul 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Jun 2026</td>
+                  <td>$8,100.00</td>
+                  <td>$3,500.00</td>
+                  <td class="reports-net-cell">+$4,600.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Jun 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">May 2026</td>
+                  <td>$7,800.00</td>
+                  <td>$3,300.00</td>
+                  <td class="reports-net-cell">+$4,500.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="May 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Apr 2026</td>
+                  <td>$7,100.00</td>
+                  <td>$3,600.00</td>
+                  <td class="reports-net-cell">+$3,500.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Apr 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Mar 2026</td>
+                  <td>$7,200.00</td>
+                  <td>$3,400.00</td>
+                  <td class="reports-net-cell">+$3,800.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Mar 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Feb 2026</td>
+                  <td>$6,800.00</td>
+                  <td>$2,900.00</td>
+                  <td class="reports-net-cell">+$3,900.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Feb 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reports-period-cell">Jan 2026</td>
+                  <td>$6,200.00</td>
+                  <td>$3,100.00</td>
+                  <td class="reports-net-cell">+$3,100.00</td>
+                  <td style="text-align: right;">
+                    <a href="#" class="btn-pdf-link" data-period="Jan 2026"><i class="ph ph-file-pdf"></i> PDF</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FOOTER INFO -->
+        <footer style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; color: var(--text-subtle); font-size: 0.75rem;">
+          <div>&copy; 2026 Finly. Mock data &mdash; for demo purposes only.</div>
+          <div>Designed with the calm of SF Pro and one Action Blue.</div>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- FLOATING LOVABLE BADGE -->
+  <div class="lovable-badge" onclick="alert('Finly Finance Dashboard - Built with Lovable & SF Pro Aesthetics')">
+    <span>Edit with</span>
+    <div class="lovable-heart"></div>
+    <strong>Lovable</strong>
+    <i class="ph ph-x" style="font-size: 0.65rem; margin-left: 0.2rem;" onclick="event.stopPropagation(); this.parentElement.style.display='none';"></i>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

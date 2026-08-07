@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finly - Wallet</title>
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      const isLoggedIn = sessionStorage.getItem('finly_logged_in') || localStorage.getItem('finly_logged_in');
+      if (!isLoggedIn) {
+        window.location.href = 'index.html';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#16181D"/>
+              <path d="M16 8C16 12 12.5 16 8 16C12.5 16 16 20 16 24C16 20 19.5 16 24 16C19.5 16 16 12 16 8Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M21 9.5H25M23 7.5V11.5" stroke="white" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="10" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span>Finly</span>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="dashboard.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li class="nav-item active"><a href="wallet.html"><i class="ph ph-wallet"></i> Wallet</a></li>
+            <li class="nav-item"><a href="cards.html"><i class="ph ph-credit-card"></i> Cards</a></li>
+            <li class="nav-item"><a href="transactions.html"><i class="ph ph-arrows-left-right"></i> Transactions</a></li>
+            <li class="nav-item"><a href="analytics.html"><i class="ph ph-chart-line-up"></i> Analytics</a></li>
+            <li class="nav-item"><a href="investments.html"><i class="ph ph-trend-up"></i> Investments</a></li>
+            <li class="nav-item"><a href="budgets.html"><i class="ph ph-piggy-bank"></i> Budgets</a></li>
+            <li class="nav-item"><a href="reports.html"><i class="ph ph-file-text"></i> Reports</a></li>
+            <li class="nav-item"><a href="#"><i class="ph ph-gear"></i> Settings</a></li>
+            <li class="nav-item"><a href="#" id="sidebar-logout" style="color: #ef4444;"><i class="ph ph-sign-out"></i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="upgrade-card">
+        <p>Upgrade to Finly Pro for unlimited insights.</p>
+        <button class="btn-upgrade">Upgrade</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="header">
+        <div class="header-greeting">
+          <h1>Wallet</h1>
+          <p>Balances, bills, cards, and transfers &mdash; in one calm view.</p>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Search transactions, cards...">
+            <span class="search-shortcut">&#8984;K</span>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle" title="Toggle dark/light theme">
+            <i class="ph ph-moon"></i>
+          </button>
+
+          <button class="icon-btn" id="notif-btn" title="Notifications">
+            <i class="ph ph-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <button class="icon-btn" id="logout-btn" title="Sign Out">
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+          <div class="avatar-badge" title="RAHIM ALI FAHRYAN">RA</div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD BODY (3 COLUMNS Layout) -->
+      <main class="dashboard-body">
+        
+        <!-- CENTER & LEFT MAIN COLUMN -->
+        <div class="center-content">
+          
+          <!-- HERO TOTAL BALANCE CARD -->
+          <section class="hero-card">
+            <div class="hero-top">
+              <span class="hero-label">Total Balance</span>
+              <div class="hero-top-right">
+                <span class="hero-tag">USD &middot; MAIN</span>
+                <span class="hero-card-num">&bull;&bull;&bull;&bull; 2514</span>
+              </div>
+            </div>
+            
+            <div class="hero-balance-row">
+              <h2 class="hero-balance" id="total-balance-text">$24,568.32</h2>
+              <button class="btn-eye" id="toggle-privacy-btn" title="Toggle balance privacy">
+                <i class="ph ph-eye-slash"></i>
+              </button>
+            </div>
+
+            <div class="hero-badge-row">
+              <span class="badge-trend-pill"><i class="ph ph-arrow-up-right"></i> +12.4%</span>
+              <span class="hero-subtext">vs. last month</span>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn-hero-pill" id="btn-send"><i class="ph ph-paper-plane-tilt"></i> Send</button>
+              <button class="btn-hero-pill" id="btn-transfer"><i class="ph ph-arrows-left-right"></i> Transfer</button>
+              <button class="btn-hero-pill" id="btn-topup"><i class="ph ph-lightning"></i> Top up</button>
+              <button class="btn-hero-pill" id="btn-addcard"><i class="ph ph-plus"></i> Add card</button>
+            </div>
+          </section>
+
+          <!-- KPI SUMMARY GRID (4 CARDS) -->
+          <section class="kpi-grid">
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-blue"></span>
+                  <span class="kpi-title">Income</span>
+                </div>
+                <span class="kpi-change up">&nearr; 8.2%</span>
+              </div>
+              <div class="kpi-value">$8,420.50</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,20 Q25,5 50,15 T100,8" fill="none" stroke="#3b82f6" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-red"></span>
+                  <span class="kpi-title">Expenses</span>
+                </div>
+                <span class="kpi-change down">&searr; 3.1%</span>
+              </div>
+              <div class="kpi-value">$1,602.21</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,15 Q25,22 50,10 T100,18" fill="none" stroke="#ef4444" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-green"></span>
+                  <span class="kpi-title">Savings</span>
+                </div>
+                <span class="kpi-change up">&nearr; 81%</span>
+              </div>
+              <div class="kpi-value">$6,818.29</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,18 Q25,10 50,14 T100,4" fill="none" stroke="#10b981" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="card kpi-card">
+              <div class="kpi-top">
+                <div class="kpi-title-row">
+                  <span class="dot-indicator dot-purple"></span>
+                  <span class="kpi-title">Investments</span>
+                </div>
+                <span class="kpi-change up">&nearr; 1.78%</span>
+              </div>
+              <div class="kpi-value">$32,780.00</div>
+              <svg class="kpi-sparkline" viewBox="0 0 100 25" preserveAspectRatio="none">
+                <path d="M0,14 Q25,20 50,8 T100,12" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+              </svg>
+            </div>
+          </section>
+
+          <!-- UPCOMING BILLS CARD -->
+          <section class="card bills-card">
+            <div class="bills-header">
+              <div>
+                <h3>Upcoming bills</h3>
+                <p class="bills-subtext">5 unpaid &middot; $2,648.97 scheduled</p>
+              </div>
+              <a href="#" class="btn-link">Autopay overview</a>
+            </div>
+
+            <div class="bills-list">
+              <div class="bill-item">
+                <div class="bill-icon"><i class="ph ph-house-line"></i></div>
+                <div class="bill-details">
+                  <h4>Rent &mdash; 88 Sullivan St.</h4>
+                  <span class="bill-date">Due Jul 28 &middot; Autopay on</span>
+                </div>
+                <div class="bill-right">
+                  <span class="bill-price">$2,400.00</span>
+                  <span class="badge-autopay on">Autopay on</span>
+                  <button class="btn-pay">Pay</button>
+                </div>
+              </div>
+
+              <div class="bill-item">
+                <div class="bill-icon"><i class="ph ph-lightning"></i></div>
+                <div class="bill-details">
+                  <h4>Con Edison</h4>
+                  <span class="bill-date">Due Jul 30 &middot; Autopay on</span>
+                </div>
+                <div class="bill-right">
+                  <span class="bill-price">$142.00</span>
+                  <span class="badge-autopay on">Autopay on</span>
+                  <button class="btn-pay">Pay</button>
+                </div>
+              </div>
+
+              <div class="bill-item">
+                <div class="bill-icon"><i class="ph ph-wifi-high"></i></div>
+                <div class="bill-details">
+                  <h4>Verizon Fios</h4>
+                  <span class="bill-date">Due Aug 02</span>
+                </div>
+                <div class="bill-right">
+                  <span class="bill-price">$79.99</span>
+                  <span class="badge-autopay off">Autopay off</span>
+                  <button class="btn-pay">Pay</button>
+                </div>
+              </div>
+
+              <div class="bill-item">
+                <div class="bill-icon"><i class="ph ph-music-note"></i></div>
+                <div class="bill-details">
+                  <h4>Spotify Family</h4>
+                  <span class="bill-date">Due Aug 05 &middot; Autopay on</span>
+                </div>
+                <div class="bill-right">
+                  <span class="bill-price">$16.89</span>
+                  <span class="badge-autopay on">Autopay on</span>
+                  <button class="btn-pay">Pay</button>
+                </div>
+              </div>
+
+              <div class="bill-item">
+                <div class="bill-icon"><i class="ph ph-cloud"></i></div>
+                <div class="bill-details">
+                  <h4>iCloud+ 2TB</h4>
+                  <span class="bill-date">Due Aug 07 &middot; Autopay on</span>
+                </div>
+                <div class="bill-right">
+                  <span class="bill-price">$9.99</span>
+                  <span class="badge-autopay on">Autopay on</span>
+                  <button class="btn-pay">Pay</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- MY CARDS SECTION -->
+          <section class="my-cards-section">
+            <div class="section-header">
+              <h3>My cards</h3>
+              <button class="btn-secondary" id="btn-addcard-section"><i class="ph ph-plus"></i> Add card</button>
+            </div>
+
+            <div class="cards-stack" id="cards-stack-container">
+              <!-- Card 1: Sleek Black Credit Card (Visa) -->
+              <div class="credit-card card-dark">
+                <div class="card-top">
+                  <div>
+                    <span class="card-label">BALANCE</span>
+                    <div class="card-balance-val">$12,480.50</div>
+                  </div>
+                  <div class="card-top-icons">
+                    <i class="ph ph-wifi-high"></i>
+                    <i class="ph ph-dots-three-vertical"></i>
+                  </div>
+                </div>
+                <div class="card-num">0818 7183 0713 2514</div>
+                <div class="card-bottom">
+                  <div>
+                    <span class="card-label">CARDHOLDER</span>
+                    <div class="card-holder-name">Alex Morgan</div>
+                  </div>
+                  <div>
+                    <span class="card-label">EXPIRES</span>
+                    <div class="card-exp-val">09/28</div>
+                  </div>
+                  <div class="card-brand">
+                    <svg class="card-logo visa-logo" width="56" height="18" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21.5 1L11.5 27.6L7.1 4.1C6.7 2.2 5.1 0.9 3.2 0.7C1.9 0.5 0.1 0.4 0 0.4L0.1 1.2C1.6 1.5 4.3 2.2 5.9 3.1C6.9 3.7 7.2 4.4 7.5 5.7L14.7 37.8H24.8L40.2 1H30.3L21.5 1ZM57.4 1L50.4 37.8H60.2L67.2 1H57.4ZM78.5 10.9C78.4 6.7 72.6 6.5 72.8 4.6C72.9 4 73.5 3.3 74.8 3.1C75.4 3 77.2 2.9 79.1 3.9L80.5 0.7C79.4 0.3 78 0 76.2 0C72.1 0 69.2 2.2 69.2 5.3C69.1 7.6 71.2 8.8 72.8 9.6C74.4 10.4 75 10.9 75 11.6C75 12.7 73.7 13.1 72.5 13.2C70.4 13.2 69.2 12.6 68.2 12.2L66.8 15.6C68 16.1 70.1 16.5 72.3 16.5C76.7 16.5 79.5 14.4 79.6 11.1Z M96.6 1H88.7C86.9 1 85.3 2.1 84.7 3.7L71.8 37.8H81.7L83.7 32.3H95.8L96.9 37.8H105.6L96.6 1ZM86.5 19.4L90.7 7.8L94.2 19.4H86.5Z" fill="white"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Vibrant Solid Royal Blue Card (Mastercard) -->
+              <div class="credit-card card-blue">
+                <div class="card-top">
+                  <div>
+                    <span class="card-label">BALANCE</span>
+                    <div class="card-balance-val">$4,820.10</div>
+                  </div>
+                  <div class="card-top-icons">
+                    <i class="ph ph-wifi-high"></i>
+                    <i class="ph ph-dots-three-vertical"></i>
+                  </div>
+                </div>
+                <div class="card-num">4021 9902 6412 8830</div>
+                <div class="card-bottom">
+                  <div>
+                    <span class="card-label">CARDHOLDER</span>
+                    <div class="card-holder-name">Alex Morgan</div>
+                  </div>
+                  <div>
+                    <span class="card-label">EXPIRES</span>
+                    <div class="card-exp-val">04/27</div>
+                  </div>
+                  <div class="card-brand">
+                    <svg class="card-logo mastercard-logo" width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="12" fill="#EB001B"/>
+                      <circle cx="26" cy="12" r="12" fill="#F79E1B" fill-opacity="0.92"/>
+                      <path d="M19 4.34863C20.9161 6.30722 22.1053 8.99596 22.1053 11.9707C22.1053 14.9455 20.9161 17.6342 19 19.5928C17.0839 17.6342 15.8947 14.9455 15.8947 11.9707C15.8947 8.99596 17.0839 6.30722 19 4.34863Z" fill="#FF5F00"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT SIDEBAR COLUMN -->
+        <aside class="right-sidebar">
+          
+          <!-- QUICK TRANSFER CARD -->
+          <div class="card wallet-transfer-card">
+            <div class="transfer-header">
+              <h3>Quick transfer</h3>
+              <a href="#" class="btn-link">See all</a>
+            </div>
+
+            <div class="avatar-row">
+              <div class="avatar-item active" data-name="Sarah">
+                <div class="avatar-circle avatar-orange">S</div>
+                <span class="avatar-name">Sarah</span>
+              </div>
+              <div class="avatar-item" data-name="Miguel">
+                <div class="avatar-circle avatar-purple">M</div>
+                <span class="avatar-name">Miguel</span>
+              </div>
+              <div class="avatar-item" data-name="Aiko">
+                <div class="avatar-circle avatar-teal">A</div>
+                <span class="avatar-name">Aiko</span>
+              </div>
+              <div class="avatar-item" data-name="Priya">
+                <div class="avatar-circle avatar-pink">P</div>
+                <span class="avatar-name">Priya</span>
+              </div>
+              <div class="avatar-item" data-name="Jonas">
+                <div class="avatar-circle avatar-blue">J</div>
+                <span class="avatar-name">Jonas</span>
+              </div>
+              <div class="avatar-item add-new">
+                <div class="avatar-circle avatar-new"><i class="ph ph-plus"></i></div>
+                <span class="avatar-name">New</span>
+              </div>
+            </div>
+
+            <form id="quick-transfer-form">
+              <div class="input-group">
+                <label for="transfer-note" class="input-label-uppercase">NOTE (OPTIONAL)</label>
+                <input type="text" id="transfer-note" class="transfer-field" placeholder="Dinner split">
+              </div>
+
+              <div class="input-group">
+                <label for="transfer-amount" class="input-label-uppercase">AMOUNT</label>
+                <input type="text" id="transfer-amount" class="transfer-field" placeholder="$ 0.00">
+              </div>
+
+              <div class="transfer-actions-row">
+                <button type="button" class="btn-pill-draft" id="btn-save-draft">Save as draft</button>
+                <button type="submit" class="btn-pill-send">Send money</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- SAVINGS GOALS CARD -->
+          <div class="card goals-card">
+            <div class="goals-header">
+              <h3><i class="ph ph-target" style="color:var(--primary-blue)"></i> Savings goals</h3>
+            </div>
+
+            <div class="goals-list">
+              <!-- Goal 1 -->
+              <div class="goal-item">
+                <div class="goal-top-info">
+                  <span class="goal-name">Emergency fund</span>
+                  <span class="goal-numbers">$8,200.00 / $12,000.00</span>
+                </div>
+                <div class="goal-progress-bar">
+                  <div class="goal-fill fill-blue" style="width: 68%;"></div>
+                </div>
+                <div class="goal-bottom-row">
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn" data-goal="Emergency fund">Add funds</button>
+                    <button class="btn-goal-act remove-funds-btn" data-goal="Emergency fund">Remove</button>
+                  </div>
+                  <span class="goal-percent">68%</span>
+                </div>
+              </div>
+
+              <!-- Goal 2 -->
+              <div class="goal-item">
+                <div class="goal-top-info">
+                  <span class="goal-name">Japan 2027</span>
+                  <span class="goal-numbers">$2,400.00 / $6,000.00</span>
+                </div>
+                <div class="goal-progress-bar">
+                  <div class="goal-fill fill-orange" style="width: 40%;"></div>
+                </div>
+                <div class="goal-bottom-row">
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn" data-goal="Japan 2027">Add funds</button>
+                    <button class="btn-goal-act remove-funds-btn" data-goal="Japan 2027">Remove</button>
+                  </div>
+                  <span class="goal-percent">40%</span>
+                </div>
+              </div>
+
+              <!-- Goal 3 -->
+              <div class="goal-item">
+                <div class="goal-top-info">
+                  <span class="goal-name">New MacBook Pro</span>
+                  <span class="goal-numbers">$1,750.00 / $3,500.00</span>
+                </div>
+                <div class="goal-progress-bar">
+                  <div class="goal-fill fill-green" style="width: 50%;"></div>
+                </div>
+                <div class="goal-bottom-row">
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn" data-goal="New MacBook Pro">Add funds</button>
+                    <button class="btn-goal-act remove-funds-btn" data-goal="New MacBook Pro">Remove</button>
+                  </div>
+                  <span class="goal-percent">50%</span>
+                </div>
+              </div>
+
+              <!-- Goal 4 -->
+              <div class="goal-item">
+                <div class="goal-top-info">
+                  <span class="goal-name">Down payment</span>
+                  <span class="goal-numbers">$14,200.00 / $60,000.00</span>
+                </div>
+                <div class="goal-progress-bar">
+                  <div class="goal-fill fill-purple" style="width: 24%;"></div>
+                </div>
+                <div class="goal-bottom-row">
+                  <div class="goal-actions">
+                    <button class="btn-goal-act add-funds-btn" data-goal="Down payment">Add funds</button>
+                    <button class="btn-goal-act remove-funds-btn" data-goal="Down payment">Remove</button>
+                  </div>
+                  <span class="goal-percent">24%</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-secondary btn-full" id="btn-add-goal" style="margin-top: 0.5rem;">+ New savings goal</button>
+          </div>
+
+        </aside>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- TOP UP MODAL -->
+  <div class="modal-overlay" id="topup-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Top up balance</h3>
+        <button class="modal-close" id="btn-close-topup"><i class="ph ph-x"></i></button>
+      </div>
+      <form id="topup-form">
+        <div class="input-group">
+          <label for="topup-amount-input">Amount ($)</label>
+          <input type="number" class="transfer-input" id="topup-amount-input" placeholder="e.g. 500.00" step="0.01" required>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top: 1rem;">Confirm Top up</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD CARD MODAL -->
+  <div class="modal-overlay" id="addcard-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add new card</h3>
+        <button class="modal-close" id="btn-close-addcard"><i class="ph ph-x"></i></button>
+      </div>
+      <form id="addcard-form">
+        <div class="input-group">
+          <label for="card-holder-input">Cardholder Name</label>
+          <input type="text" class="transfer-input" id="card-holder-input" placeholder="Alex Morgan" required>
+        </div>
+        <div class="input-group">
+          <label for="card-num-input">Card Number</label>
+          <input type="text" class="transfer-input" id="card-num-input" placeholder="4000 1234 5678 9010" maxlength="19" required>
+        </div>
+        <div style="display:flex;gap:1rem">
+          <div class="input-group" style="flex:1">
+            <label for="card-exp-input">Expires (MM/YY)</label>
+            <input type="text" class="transfer-input" id="card-exp-input" placeholder="12/28" maxlength="5" required>
+          </div>
+          <div class="input-group" style="flex:1">
+            <label for="card-cvv-input">CVV</label>
+            <input type="password" class="transfer-input" id="card-cvv-input" placeholder="123" maxlength="4" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:1rem">Add Card</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

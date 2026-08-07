@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finly - Cards</title>
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Inline dark mode initialization to avoid unstyled flickering
+    (function() {
+      const theme = localStorage.getItem('finly_theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-brand">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#16181D"/>
+              <path d="M16 8C16 12 12.5 16 8 16C12.5 16 16 20 16 24C16 20 19.5 16 24 16C19.5 16 16 12 16 8Z" fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M21 9.5H25M23 7.5V11.5" stroke="white" stroke-width="1.75" stroke-linecap="round"/>
+              <circle cx="10" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </div>
+          <span>Finly</span>
+        </div>
+
+        <nav>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="dashboard.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="wallet.html"><i class="ph ph-wallet"></i> Wallet</a></li>
+            <li class="nav-item active"><a href="cards.html"><i class="ph ph-credit-card"></i> Cards</a></li>
+            <li class="nav-item"><a href="transactions.html"><i class="ph ph-arrows-left-right"></i> Transactions</a></li>
+            <li class="nav-item"><a href="analytics.html"><i class="ph ph-chart-line-up"></i> Analytics</a></li>
+            <li class="nav-item"><a href="investments.html"><i class="ph ph-trend-up"></i> Investments</a></li>
+            <li class="nav-item"><a href="budgets.html"><i class="ph ph-piggy-bank"></i> Budgets</a></li>
+            <li class="nav-item"><a href="reports.html"><i class="ph ph-file-text"></i> Reports</a></li>
+            <li class="nav-item"><a href="#"><i class="ph ph-gear"></i> Settings</a></li>
+            <li class="nav-item"><a href="#" id="sidebar-logout" style="color: #ef4444;"><i class="ph ph-sign-out"></i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="upgrade-card">
+        <p>Upgrade to Finly Pro for unlimited insights.</p>
+        <button class="btn-upgrade">Upgrade</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="header">
+        <div class="header-greeting">
+          <h1>Cards</h1>
+          <p>Your physical and virtual cards.</p>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Search transactions, cards...">
+            <span class="search-shortcut">&#8984;K</span>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle" title="Toggle dark/light theme">
+            <i class="ph ph-moon"></i>
+          </button>
+
+          <button class="icon-btn" id="notif-btn" title="Notifications">
+            <i class="ph ph-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <button class="icon-btn" id="logout-btn" title="Sign Out">
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+          <div class="avatar-badge" title="RAHIM ALI FAHRYAN">RA</div>
+        </div>
+      </header>
+
+      <!-- CARDS PAGE BODY -->
+      <main class="dashboard-body" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 1680px; width: 100%;">
+        
+        <!-- SUBHEADER WITH SUMMARY & REQUEST CARD BUTTON -->
+        <div class="cards-subheader">
+          <div class="cards-summary-text">
+            <span id="active-cards-count">2 active cards</span> &middot; <span id="total-cards-balance">$17,300.60</span> across cards
+          </div>
+          <button class="btn-request-card-pill" id="btn-request-card">
+            <i class="ph ph-plus"></i> Request new card
+          </button>
+        </div>
+
+        <!-- CARDS DISPLAY GRID (2 COLUMNS) -->
+        <div class="cards-grid-row">
+          
+          <!-- CARD 1: DARK MATTE VISA CARD -->
+          <div class="card-manage-box" id="box-card-1">
+            <div class="credit-card card-dark" style="height: 200px;">
+              <div class="card-top">
+                <div>
+                  <span class="card-label">BALANCE</span>
+                  <div class="card-balance-val">$12,480.50</div>
+                </div>
+                <div class="card-top-icons">
+                  <i class="ph ph-wifi-high"></i>
+                </div>
+              </div>
+              <div class="card-num">0818 7183 0713 2514</div>
+              <div class="card-bottom">
+                <div>
+                  <span class="card-label">CARDHOLDER</span>
+                  <div class="card-holder-name">RAHIM ALI FAHRYAN</div>
+                </div>
+                <div>
+                  <span class="card-label">EXPIRES</span>
+                  <div class="card-exp-val">09/28</div>
+                </div>
+                <div class="card-brand">
+                  <svg class="card-logo visa-logo" width="54" height="18" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.5 1L11.5 27.6L7.1 4.1C6.7 2.2 5.1 0.9 3.2 0.7C1.9 0.5 0.1 0.4 0 0.4L0.1 1.2C1.6 1.5 4.3 2.2 5.9 3.1C6.9 3.7 7.2 4.4 7.5 5.7L14.7 37.8H24.8L40.2 1H30.3L21.5 1ZM57.4 1L50.4 37.8H60.2L67.2 1H57.4ZM78.5 10.9C78.4 6.7 72.6 6.5 72.8 4.6C72.9 4 73.5 3.3 74.8 3.1C75.4 3 77.2 2.9 79.1 3.9L80.5 0.7C79.4 0.3 78 0 76.2 0C72.1 0 69.2 2.2 69.2 5.3C69.1 7.6 71.2 8.8 72.8 9.6C74.4 10.4 75 10.9 75 11.6C75 12.7 73.7 13.1 72.5 13.2C70.4 13.2 69.2 12.6 68.2 12.2L66.8 15.6C68 16.1 70.1 16.5 72.3 16.5C76.7 16.5 79.5 14.4 79.6 11.1Z M96.6 1H88.7C86.9 1 85.3 2.1 84.7 3.7L71.8 37.8H81.7L83.7 32.3H95.8L96.9 37.8H105.6L96.6 1ZM86.5 19.4L90.7 7.8L94.2 19.4H86.5Z" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS GRID -->
+            <div class="card-action-group">
+              <button class="card-action-btn btn-freeze" data-card-id="card-1">
+                <i class="ph ph-snowflake"></i> <span>Freeze</span>
+              </button>
+              <button class="card-action-btn btn-lock-pin" data-card-id="card-1">
+                <i class="ph ph-lock-key"></i> <span>Lock PIN</span>
+              </button>
+              <button class="card-action-btn btn-limits" data-card-id="card-1">
+                <i class="ph ph-sliders"></i> <span>Limits</span>
+              </button>
+            </div>
+
+            <!-- CARD DETAILS META TABLE -->
+            <div class="card-info-table">
+              <div class="card-info-row">
+                <span class="card-info-label">Monthly limit</span>
+                <span class="card-info-val" id="limit-card-1">$5,000.00</span>
+              </div>
+              <div class="card-info-row">
+                <span class="card-info-label">Spent this month</span>
+                <span class="card-info-val">$3,494.54</span>
+              </div>
+              <div class="card-info-row">
+                <span class="card-info-label">Status</span>
+                <span class="badge-status status-active" id="status-card-1">Active</span>
+              </div>
+            </div>
+
+            <!-- REMOVE CARD BUTTON -->
+            <button class="btn-remove-card" data-card-id="card-1">
+              <i class="ph ph-trash"></i> Remove card
+            </button>
+          </div>
+
+          <!-- CARD 2: VIBRANT ACTION BLUE MASTERCARD -->
+          <div class="card-manage-box" id="box-card-2">
+            <div class="credit-card card-blue" style="height: 200px;">
+              <div class="card-top">
+                <div>
+                  <span class="card-label">BALANCE</span>
+                  <div class="card-balance-val">$4,820.10</div>
+                </div>
+                <div class="card-top-icons">
+                  <i class="ph ph-wifi-high"></i>
+                </div>
+              </div>
+              <div class="card-num">4021 9902 6412 8830</div>
+              <div class="card-bottom">
+                <div>
+                  <span class="card-label">CARDHOLDER</span>
+                  <div class="card-holder-name">RAHIM ALI FAHRYAN</div>
+                </div>
+                <div>
+                  <span class="card-label">EXPIRES</span>
+                  <div class="card-exp-val">04/27</div>
+                </div>
+                <div class="card-brand" style="display: flex; align-items: center; gap: 0.4rem;">
+                  <svg class="card-logo mastercard-logo" width="36" height="22" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#EB001B"/>
+                    <circle cx="26" cy="12" r="12" fill="#F79E1B" fill-opacity="0.92"/>
+                    <path d="M19 4.34863C20.9161 6.30722 22.1053 8.99596 22.1053 11.9707C22.1053 14.9455 20.9161 17.6342 19 19.5928C17.0839 17.6342 15.8947 14.9455 15.8947 11.9707C15.8947 8.99596 17.0839 6.30722 19 4.34863Z" fill="#FF5F00"/>
+                  </svg>
+                  <span style="font-style: italic; font-weight: 700; font-size: 0.85rem; letter-spacing: -0.03em;">Mastercard</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS GRID -->
+            <div class="card-action-group">
+              <button class="card-action-btn btn-freeze" data-card-id="card-2">
+                <i class="ph ph-snowflake"></i> <span>Freeze</span>
+              </button>
+              <button class="card-action-btn btn-lock-pin" data-card-id="card-2">
+                <i class="ph ph-lock-key"></i> <span>Lock PIN</span>
+              </button>
+              <button class="card-action-btn btn-limits" data-card-id="card-2">
+                <i class="ph ph-sliders"></i> <span>Limits</span>
+              </button>
+            </div>
+
+            <!-- CARD DETAILS META TABLE -->
+            <div class="card-info-table">
+              <div class="card-info-row">
+                <span class="card-info-label">Monthly limit</span>
+                <span class="card-info-val" id="limit-card-2">$7,500.00</span>
+              </div>
+              <div class="card-info-row">
+                <span class="card-info-label">Spent this month</span>
+                <span class="card-info-val">$1,349.63</span>
+              </div>
+              <div class="card-info-row">
+                <span class="card-info-label">Status</span>
+                <span class="badge-status status-active" id="status-card-2">Active</span>
+              </div>
+            </div>
+
+            <!-- REMOVE CARD BUTTON -->
+            <button class="btn-remove-card" data-card-id="card-2">
+              <i class="ph ph-trash"></i> Remove card
+            </button>
+          </div>
+
+        </div>
+
+        <!-- BOTTOM GRID (REWARDS + RECENT CARD ACTIVITY) -->
+        <div class="cards-bottom-grid">
+          
+          <!-- LEFT: REWARDS THIS MONTH -->
+          <div class="cards-section-card">
+            <div class="card-header-with-icon">
+              <div class="icon-square-blue"><i class="ph ph-gift"></i></div>
+              <div>
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main);">Rewards this month</h3>
+              </div>
+            </div>
+            
+            <div class="rewards-amount">$234.70</div>
+            <div class="rewards-subtitle">Earned across all cards - redeems for statement credit</div>
+
+            <div class="rewards-list">
+              <div class="reward-item">
+                <div class="reward-item-left">
+                  <div class="reward-icon-circle"><i class="ph ph-cooking-pot"></i></div>
+                  <div>
+                    <div class="reward-title">Dining</div>
+                    <div class="reward-rate">3% cashback</div>
+                  </div>
+                </div>
+                <div class="reward-value">+$48.20</div>
+              </div>
+
+              <div class="reward-item">
+                <div class="reward-item-left">
+                  <div class="reward-icon-circle"><i class="ph ph-airplane-tilt"></i></div>
+                  <div>
+                    <div class="reward-title">Travel</div>
+                    <div class="reward-rate">2% cashback</div>
+                  </div>
+                </div>
+                <div class="reward-value">+$112.40</div>
+              </div>
+
+              <div class="reward-item">
+                <div class="reward-item-left">
+                  <div class="reward-icon-circle"><i class="ph ph-shopping-bag"></i></div>
+                  <div>
+                    <div class="reward-title">Everything else</div>
+                    <div class="reward-rate">1% cashback</div>
+                  </div>
+                </div>
+                <div class="reward-value">+$74.10</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: RECENT CARD ACTIVITY -->
+          <div class="cards-section-card">
+            <div class="recent-activity-header">
+              <h3>Recent card activity</h3>
+              <p>Across all cards, most recent first</p>
+            </div>
+
+            <div class="activity-list">
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">Sell AAPL</div>
+                  <div class="activity-meta">Investments &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount positive">+$500.00</div>
+              </div>
+
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">Sell AAPL</div>
+                  <div class="activity-meta">Investments &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount positive">+$300.00</div>
+              </div>
+
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">iCloud+ 2TB</div>
+                  <div class="activity-meta">Bills &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount negative">-$9.99</div>
+              </div>
+
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">Spotify Family</div>
+                  <div class="activity-meta">Bills &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount negative">-$16.99</div>
+              </div>
+
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">Con Edison</div>
+                  <div class="activity-meta">Bills &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount negative">-$142.00</div>
+              </div>
+
+              <div class="activity-item">
+                <div>
+                  <div class="activity-title">Verizon Fios</div>
+                  <div class="activity-meta">Bills &bull; Aug 6, 2026</div>
+                </div>
+                <div class="activity-amount negative">-$79.99</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FOOTER BAR -->
+        <footer class="cards-footer">
+          <p>&copy; 2026 Finly. Mock data &mdash; for demo purposes only.</p>
+          <p>Designed with the calm of SF Pro and one Action Blue.</p>
+        </footer>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- REQUEST NEW CARD MODAL -->
+  <div class="modal-backdrop" id="modal-request-card" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Request New Card</h2>
+        <button class="btn-close" class="close-modal-btn"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-request-card">
+          <div class="form-group">
+            <label>Card Type</label>
+            <select id="req-card-type" class="form-control" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-md); background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-main);">
+              <option value="Virtual Card">Virtual Card (Instant Setup)</option>
+              <option value="Physical Card">Physical Card (Shipped in 3 days)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <label>Cardholder Name</label>
+            <input type="text" id="req-card-name" value="RAHIM ALI FAHRYAN" class="form-control" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-md); background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-main);">
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <label>Monthly Limit ($)</label>
+            <input type="number" id="req-card-limit" value="5000" class="form-control" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-md); background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-main);">
+          </div>
+          <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" class="btn-secondary close-modal-btn" style="padding: 0.6rem 1.1rem; border-radius: var(--radius-pill);">Cancel</button>
+            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.3rem; border-radius: var(--radius-pill);">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIMITS MODAL -->
+  <div class="modal-backdrop" id="modal-card-limits" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Adjust Card Limits</h2>
+        <button class="btn-close close-modal-btn"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-card-limits">
+          <input type="hidden" id="limits-target-card">
+          <div class="form-group">
+            <label>New Monthly Spending Limit ($)</label>
+            <input type="number" id="input-monthly-limit" class="form-control" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-md); background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-main);" required>
+          </div>
+          <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" class="btn-secondary close-modal-btn" style="padding: 0.6rem 1.1rem; border-radius: var(--radius-pill);">Cancel</button>
+            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.3rem; border-radius: var(--radius-pill);">Save Limits</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

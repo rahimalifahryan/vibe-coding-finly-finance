@@ -1,0 +1,12 @@
+{
+  "name": "finly-finance",
+  "version": "1.0.0",
+  "description": "Finly Personal Finance Web Application",
+  "main": "src/index.html",
+  "scripts": {
+    "dev": "powershell -ExecutionPolicy Bypass -File serve.ps1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
