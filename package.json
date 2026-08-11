@@ -1,24 +1,21 @@
 {
   "name": "finly-finance",
   "version": "2.0.0",
-  "description": "Finly Enterprise Personal Finance Web Application built with React and IndexedDB Database Engine",
-  "main": "index.html",
-  "type": "module",
+  "description": "Finly Enterprise Personal Finance Web Application built with Next.js and IndexedDB Database Engine",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "powershell -ExecutionPolicy Bypass -File serve.ps1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "next": "^14.2.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vite": "^5.4.1"
+    "react-dom": "^18.3.1"
   },
   "keywords": [
+    "nextjs",
     "react",
     "finance",
     "indexeddb",

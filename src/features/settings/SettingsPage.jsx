@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useAuth } from '../../core/auth/AuthContext.jsx';
 import { useTheme } from '../../core/theme/ThemeContext.jsx';

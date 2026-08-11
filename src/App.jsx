@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ThemeProvider } from './core/theme/ThemeContext.jsx';
 import { AuthProvider, useAuth } from './core/auth/AuthContext.jsx';
@@ -77,13 +79,5 @@ const MainAppContent = () => {
 };
 
 export function App() {
-  return (
-    <ThemeProvider>
-      <AuthProvider>
-        <DbProvider>
-          <MainAppContent />
-        </DbProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  );
+  return <MainAppContent />;
 }

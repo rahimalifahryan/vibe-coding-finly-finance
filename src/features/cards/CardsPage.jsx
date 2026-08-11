@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useDb } from '../../core/database/DbContext.jsx';
 import { Modal } from '../../design-system/components/Modal.jsx';
