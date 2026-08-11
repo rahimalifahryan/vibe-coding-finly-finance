@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../core/auth/AuthContext.js';
-import { useDb } from '../../core/database/DbContext.js';
-import { Modal } from '../../design-system/components/Modal.js';
+import { useAuth } from '../../core/auth/AuthContext.jsx';
+import { useDb } from '../../core/database/DbContext.jsx';
+import { Modal } from '../../design-system/components/Modal.jsx';
 
 export const WalletPage = ({ setActiveTab }) => {
   const { user } = useAuth();

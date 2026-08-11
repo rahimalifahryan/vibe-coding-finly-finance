@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../core/auth/AuthContext.js';
+import { useAuth } from '../../core/auth/AuthContext.jsx';
 
 export const RegisterPage = ({ onNavigateLogin, onRegisterSuccess }) => {
   const { register } = useAuth();

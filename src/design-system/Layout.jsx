@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useAuth } from '../core/auth/AuthContext.js';
-import { useTheme } from '../core/theme/ThemeContext.js';
-import { useDb } from '../core/database/DbContext.js';
-import { ToastContainer } from './components/Toast.js';
+import { useAuth } from '../core/auth/AuthContext.jsx';
+import { useTheme } from '../core/theme/ThemeContext.jsx';
+import { useDb } from '../core/database/DbContext.jsx';
+import { ToastContainer } from './components/Toast.jsx';
 
 export const Layout = ({ activeTab, setActiveTab, children, searchQuery, setSearchQuery }) => {
   const { user, logout, toggleBalancePrivacy } = useAuth();

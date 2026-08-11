@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDb } from '../../core/database/DbContext.js';
+import { useDb } from '../../core/database/DbContext.jsx';
 
 export const ReportsPage = () => {
   const { transactions, showToast } = useDb();

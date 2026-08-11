@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDb } from '../../core/database/DbContext.js';
-import { Modal } from '../../design-system/components/Modal.js';
+import { useDb } from '../../core/database/DbContext.jsx';
+import { Modal } from '../../design-system/components/Modal.jsx';
 
 export const TransactionsPage = ({ searchQuery }) => {
   const { transactions, addTransaction, showToast } = useDb();

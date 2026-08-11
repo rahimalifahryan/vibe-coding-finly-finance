@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../core/auth/AuthContext.js';
-import { useTheme } from '../../core/theme/ThemeContext.js';
-import { useDb } from '../../core/database/DbContext.js';
+import { useAuth } from '../../core/auth/AuthContext.jsx';
+import { useTheme } from '../../core/theme/ThemeContext.jsx';
+import { useDb } from '../../core/database/DbContext.jsx';
 
 export const SettingsPage = () => {
   const { user } = useAuth();

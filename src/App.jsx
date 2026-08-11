@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from './core/theme/ThemeContext.js';
-import { AuthProvider, useAuth } from './core/auth/AuthContext.js';
-import { DbProvider } from './core/database/DbContext.js';
-import { Layout } from './design-system/Layout.js';
+import { ThemeProvider } from './core/theme/ThemeContext.jsx';
+import { AuthProvider, useAuth } from './core/auth/AuthContext.jsx';
+import { DbProvider } from './core/database/DbContext.jsx';
+import { Layout } from './design-system/Layout.jsx';
 
-import { DashboardPage } from './features/dashboard/DashboardPage.js';
-import { TransactionsPage } from './features/transactions/TransactionsPage.js';
-import { AnalyticsPage } from './features/analytics/AnalyticsPage.js';
-import { CardsPage } from './features/cards/CardsPage.js';
-import { WalletPage } from './features/wallet/WalletPage.js';
-import { BudgetsPage } from './features/budgets/BudgetsPage.js';
-import { InvestmentsPage } from './features/investments/InvestmentsPage.js';
-import { ReportsPage } from './features/reports/ReportsPage.js';
-import { SettingsPage } from './features/settings/SettingsPage.js';
+import { DashboardPage } from './features/dashboard/DashboardPage.jsx';
+import { TransactionsPage } from './features/transactions/TransactionsPage.jsx';
+import { AnalyticsPage } from './features/analytics/AnalyticsPage.jsx';
+import { CardsPage } from './features/cards/CardsPage.jsx';
+import { WalletPage } from './features/wallet/WalletPage.jsx';
+import { BudgetsPage } from './features/budgets/BudgetsPage.jsx';
+import { InvestmentsPage } from './features/investments/InvestmentsPage.jsx';
+import { ReportsPage } from './features/reports/ReportsPage.jsx';
+import { SettingsPage } from './features/settings/SettingsPage.jsx';
 
-import { LoginPage } from './features/auth/LoginPage.js';
-import { RegisterPage } from './features/auth/RegisterPage.js';
+import { LoginPage } from './features/auth/LoginPage.jsx';
+import { RegisterPage } from './features/auth/RegisterPage.jsx';
 
 const MainAppContent = () => {
   const { user, loading } = useAuth();

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { finlyDB } from './finlyDB.js';
-import { useAuth } from '../auth/AuthContext.js';
+import { useAuth } from '../auth/AuthContext.jsx';
 
 const DbContext = createContext();
 
