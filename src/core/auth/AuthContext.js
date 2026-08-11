@@ -14,13 +14,11 @@ export const AuthProvider = ({ children }) => {
         if (storedUserRaw) {
           setUser(JSON.parse(storedUserRaw));
         } else {
-          const dbUser = await finlyDB.get('user', 'usr_1');
-          if (dbUser) {
-            setUser(dbUser);
-          }
+          setUser(null);
         }
       } catch (err) {
         console.error('Failed to load session:', err);
+        setUser(null);
       } finally {
         setLoading(false);
       }
