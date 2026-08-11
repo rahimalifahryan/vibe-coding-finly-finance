@@ -12,11 +12,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loadSession = async () => {
       try {
-        const storedUserRaw = sessionStorage.getItem('finly_user') || localStorage.getItem('finly_user');
-        if (storedUserRaw) {
-          setUser(JSON.parse(storedUserRaw));
-        } else {
-          setUser(null);
+        if (typeof window !== 'undefined') {
+          const storedUserRaw = sessionStorage.getItem('finly_user') || localStorage.getItem('finly_user');
+          if (storedUserRaw) {
+            setUser(JSON.parse(storedUserRaw));
+          } else {
+            setUser(null);
+          }
         }
       } catch (err) {
         console.error('Failed to load session:', err);
@@ -54,13 +56,15 @@ export const AuthProvider = ({ children }) => {
     await finlyDB.put('user', userData);
     setUser(userData);
 
-    const strData = JSON.stringify(userData);
-    sessionStorage.setItem('finly_user', strData);
-    sessionStorage.setItem('finly_logged_in', 'true');
+    if (typeof window !== 'undefined') {
+      const strData = JSON.stringify(userData);
+      sessionStorage.setItem('finly_user', strData);
+      sessionStorage.setItem('finly_logged_in', 'true');
 
-    if (remember) {
-      localStorage.setItem('finly_user', strData);
-      localStorage.setItem('finly_logged_in', 'true');
+      if (remember) {
+        localStorage.setItem('finly_user', strData);
+        localStorage.setItem('finly_logged_in', 'true');
+      }
     }
     return userData;
   };
@@ -85,20 +89,24 @@ export const AuthProvider = ({ children }) => {
     await finlyDB.put('user', userData);
     setUser(userData);
 
-    const strData = JSON.stringify(userData);
-    sessionStorage.setItem('finly_user', strData);
-    sessionStorage.setItem('finly_logged_in', 'true');
-    localStorage.setItem('finly_user', strData);
-    localStorage.setItem('finly_logged_in', 'true');
+    if (typeof window !== 'undefined') {
+      const strData = JSON.stringify(userData);
+      sessionStorage.setItem('finly_user', strData);
+      sessionStorage.setItem('finly_logged_in', 'true');
+      localStorage.setItem('finly_user', strData);
+      localStorage.setItem('finly_logged_in', 'true');
+    }
 
     return userData;
   };
 
   const logout = () => {
-    sessionStorage.removeItem('finly_logged_in');
-    sessionStorage.removeItem('finly_user');
-    localStorage.removeItem('finly_logged_in');
-    localStorage.removeItem('finly_user');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('finly_logged_in');
+      sessionStorage.removeItem('finly_user');
+      localStorage.removeItem('finly_logged_in');
+      localStorage.removeItem('finly_user');
+    }
     setUser(null);
   };
 
@@ -107,9 +115,11 @@ export const AuthProvider = ({ children }) => {
     const updated = { ...user, balance: newBalance };
     setUser(updated);
     await finlyDB.put('user', updated);
-    const strData = JSON.stringify(updated);
-    if (sessionStorage.getItem('finly_user')) sessionStorage.setItem('finly_user', strData);
-    if (localStorage.getItem('finly_user')) localStorage.setItem('finly_user', strData);
+    if (typeof window !== 'undefined') {
+      const strData = JSON.stringify(updated);
+      if (sessionStorage.getItem('finly_user')) sessionStorage.setItem('finly_user', strData);
+      if (localStorage.getItem('finly_user')) localStorage.setItem('finly_user', strData);
+    }
   };
 
   const toggleBalancePrivacy = async () => {
@@ -117,9 +127,11 @@ export const AuthProvider = ({ children }) => {
     const updated = { ...user, isBalanceHidden: !user.isBalanceHidden };
     setUser(updated);
     await finlyDB.put('user', updated);
-    const strData = JSON.stringify(updated);
-    if (sessionStorage.getItem('finly_user')) sessionStorage.setItem('finly_user', strData);
-    if (localStorage.getItem('finly_user')) localStorage.setItem('finly_user', strData);
+    if (typeof window !== 'undefined') {
+      const strData = JSON.stringify(updated);
+      if (sessionStorage.getItem('finly_user')) sessionStorage.setItem('finly_user', strData);
+      if (localStorage.getItem('finly_user')) localStorage.setItem('finly_user', strData);
+    }
   };
 
   return (

@@ -70,6 +70,9 @@ class FinlyDatabase {
   }
 
   async init() {
+    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+      return null;
+    }
     if (this.db) return this.db;
 
     return new Promise((resolve, reject) => {
@@ -116,7 +119,9 @@ class FinlyDatabase {
   }
 
   async getAll(storeName) {
-    await this.init();
+    if (typeof window === 'undefined') return [];
+    const db = await this.init();
+    if (!db) return [];
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(storeName, 'readonly');
       const store = transaction.objectStore(storeName);
@@ -127,7 +132,9 @@ class FinlyDatabase {
   }
 
   async get(storeName, key) {
-    await this.init();
+    if (typeof window === 'undefined') return null;
+    const db = await this.init();
+    if (!db) return null;
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(storeName, 'readonly');
       const store = transaction.objectStore(storeName);
@@ -138,7 +145,9 @@ class FinlyDatabase {
   }
 
   async put(storeName, value) {
-    await this.init();
+    if (typeof window === 'undefined') return null;
+    const db = await this.init();
+    if (!db) return null;
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(storeName, 'readwrite');
       const store = transaction.objectStore(storeName);
@@ -149,7 +158,9 @@ class FinlyDatabase {
   }
 
   async delete(storeName, key) {
-    await this.init();
+    if (typeof window === 'undefined') return null;
+    const db = await this.init();
+    if (!db) return null;
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(storeName, 'readwrite');
       const store = transaction.objectStore(storeName);
