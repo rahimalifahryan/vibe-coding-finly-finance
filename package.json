@@ -1,12 +1,19 @@
 {
   "name": "finly-finance",
-  "version": "1.0.0",
-  "description": "Finly Personal Finance Web Application",
+  "version": "2.0.0",
+  "description": "Finly Enterprise Personal Finance Web Application built with React and IndexedDB Database Engine",
   "main": "src/index.html",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File serve.ps1"
+    "dev": "powershell -ExecutionPolicy Bypass -File serve.ps1",
+    "start": "powershell -ExecutionPolicy Bypass -File serve.ps1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "finance",
+    "indexeddb",
+    "dashboard",
+    "fintech"
+  ],
+  "author": "Finly Team",
   "license": "ISC"
 }
