@@ -37,7 +37,7 @@ export const Layout = ({ activeTab, setActiveTab, children, searchQuery, setSear
 
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="sidebar-brand">
+        <div className="sidebar-brand" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('dashboard')}>
           <div className="brand-icon">
             <i className="ph ph-trend-up"></i>
           </div>
@@ -50,9 +50,12 @@ export const Layout = ({ activeTab, setActiveTab, children, searchQuery, setSear
               <li
                 key={item.id}
                 className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(item.id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(item.id);
+                }}
               >
-                <a href={`#${item.id}`}>
+                <a href={`#${item.id}`} onClick={(e) => e.preventDefault()}>
                   <i className={`ph ${item.icon}`}></i>
                   <span>{item.label}</span>
                 </a>

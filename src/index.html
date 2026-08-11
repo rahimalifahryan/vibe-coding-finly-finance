@@ -14,20 +14,11 @@
 
   <!-- Base Application Stylesheet -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- React 18 & Babel Standalone CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
 
-  <!-- Main React App Launch Script -->
-  <script type="text/babel" data-presets="react" data-type="module">
-    import { App } from './App.js';
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+  <!-- Main React Entry point script -->
+  <script type="module" src="./main.js"></script>
 </body>
 </html>

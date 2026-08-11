@@ -3,9 +3,22 @@
   "version": "2.0.0",
   "description": "Finly Enterprise Personal Finance Web Application built with React and IndexedDB Database Engine",
   "main": "src/index.html",
+  "type": "module",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File serve.ps1",
+    "dev": "vite src",
+    "build": "vite build",
+    "preview": "vite preview",
     "start": "powershell -ExecutionPolicy Bypass -File serve.ps1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.1"
   },
   "keywords": [
     "react",
