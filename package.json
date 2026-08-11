@@ -2,10 +2,10 @@
   "name": "finly-finance",
   "version": "2.0.0",
   "description": "Finly Enterprise Personal Finance Web Application built with React and IndexedDB Database Engine",
-  "main": "src/index.html",
+  "main": "index.html",
   "type": "module",
   "scripts": {
-    "dev": "vite src",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "start": "powershell -ExecutionPolicy Bypass -File serve.ps1"
