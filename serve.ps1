@@ -1,3 +1,9 @@
+$esbuildPath = "C:\Users\Asus\AppData\Local\Programs\Antigravity IDE\resources\app\node_modules\@esbuild\win32-x64\esbuild.exe"
+if (Test-Path $esbuildPath) {
+    Write-Host "Building React bundle with esbuild..."
+    & $esbuildPath "$PSScriptRoot\src\main.jsx" --bundle "--outfile=$PSScriptRoot\src\bundle.js" --format=esm --jsx=transform --external:react --external:react-dom --external:react-dom/client --external:recharts | Out-Null
+}
+
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:8080/")
 try {

@@ -18,13 +18,45 @@ export const DbProvider = ({ children }) => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState(null);
+  
+  const [notifications, setNotifications] = useState([
+    { id: 'n1', title: 'Dividend Payout', desc: 'Received $42.50 from VOO', time: '10m ago', unread: true, icon: 'ph-trend-up', color: '#10b981' },
+    { id: 'n2', title: 'Bill Reminder', desc: 'Adobe CC due in 3 days ($54.99)', time: '1h ago', unread: true, icon: 'ph-receipt', color: '#f59e0b' },
+    { id: 'n3', title: 'Security Alert', desc: 'New sign-in from Chrome on Windows', time: '3h ago', unread: false, icon: 'ph-shield-check', color: '#2563eb' }
+  ]);
+
+  const addNotification = useCallback((title, desc, type = 'info') => {
+    const newN = {
+      id: `n-${Date.now()}`,
+      title,
+      desc,
+      time: 'Just now',
+      unread: true,
+      icon: type === 'success' ? 'ph-check-circle' : type === 'warning' ? 'ph-warning' : 'ph-bell',
+      color: type === 'success' ? '#10b981' : type === 'warning' ? '#ef4444' : '#2563eb'
+    };
+    setNotifications(prev => [newN, ...prev]);
+  }, []);
 
   const showToast = useCallback((msg) => {
     setToastMessage(msg);
-  }, []);
+    addNotification('Activity Alert', msg, 'info');
+  }, [addNotification]);
 
   const clearToast = useCallback(() => {
     setToastMessage(null);
+  }, []);
+
+  const markAllNotificationsRead = useCallback(() => {
+    setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
+  }, []);
+
+  const removeNotification = useCallback((id) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  }, []);
+
+  const clearAllNotifications = useCallback(() => {
+    setNotifications([]);
   }, []);
 
   const refreshAllData = useCallback(async () => {
@@ -184,6 +216,27 @@ export const DbProvider = ({ children }) => {
     showToast(`Purchased $${amount} worth of ${inv.symbol}`);
   };
 
+  const sellInvestment = async (assetId, amount) => {
+    const inv = investments.find(i => i.id === assetId);
+    if (!inv) return;
+    const soldShares = amount / inv.currentPrice;
+    const newHoldings = Math.max(0, inv.holdings - soldShares);
+    const updated = {
+      ...inv,
+      holdings: Math.round(newHoldings * 100) / 100,
+      value: newHoldings * inv.currentPrice
+    };
+    await finlyDB.put('investments', updated);
+    await refreshAllData();
+    showToast(`Sold $${amount} worth of ${inv.symbol}`);
+  };
+
+  const deleteGoal = async (goalId) => {
+    await finlyDB.delete('goals', goalId);
+    await refreshAllData();
+    showToast('Goal removed');
+  };
+
   const saveSettings = async (newSettings) => {
     const updated = { id: 'app_settings', ...newSettings };
     await finlyDB.put('settings', updated);
@@ -200,10 +253,15 @@ export const DbProvider = ({ children }) => {
       budgets,
       investments,
       settings,
+      notifications,
       loading,
       toastMessage,
       showToast,
       clearToast,
+      addNotification,
+      markAllNotificationsRead,
+      removeNotification,
+      clearAllNotifications,
       addTransaction,
       addCard,
       toggleFreezeCard,
@@ -212,8 +270,10 @@ export const DbProvider = ({ children }) => {
       payBill,
       updateGoalFunds,
       addGoal,
+      deleteGoal,
       addBudget,
       buyInvestment,
+      sellInvestment,
       saveSettings,
       refreshAllData
     }}>

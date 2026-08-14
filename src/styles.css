@@ -16,6 +16,12 @@
   --header-bg: #ffffff;
   --header-border: #e2e8f0;
 
+  /* Aliases for React Components */
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --accent-blue: #2563eb;
+  --border-color: #e2e8f0;
+
   --text-main: #0f172a;
   --text-muted: #64748b;
   --text-subtle: #94a3b8;
@@ -60,6 +66,12 @@
   --header-bg: #111520;
   --header-border: #1d2433;
 
+  /* Aliases for Dark Theme */
+  --bg-app: #090c12;
+  --bg-card: #111520;
+  --accent-blue: #3b82f6;
+  --border-color: #1d2433;
+
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-subtle: #64748b;
@@ -82,10 +94,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: var(--font-family);
 }
 
-body, input, button, select, textarea, table, th, td {
-  font-family: var(--font-family);
+body, input, button, select, textarea, table, th, td, span, div, h1, h2, h3, h4, h5, h6, a, p {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -117,6 +130,44 @@ a:hover {
 button {
   font-family: var(--font-family);
   cursor: pointer;
+}
+
+/* Precise Icon & Logo Centering Fix */
+i, i.ph, i[class*="ph-"], .ph {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  font-style: normal !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+i svg, .ph svg {
+  display: block !important;
+  width: 1em !important;
+  height: 1em !important;
+  margin: auto !important;
+  flex-shrink: 0 !important;
+}
+
+.brand-icon, .logo-icon, .icon-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+
+.brand-icon i, .logo-icon i, .icon-btn i {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* ==========================================================================
@@ -547,7 +598,8 @@ button {
 }
 
 /* Main Area Wrapper */
-.main-wrapper {
+.main-wrapper,
+.dashboard-layout {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -560,7 +612,8 @@ button {
 }
 
 /* Header */
-.header {
+.header,
+.top-navbar {
   position: fixed;
   top: 0;
   left: 250px;
@@ -663,15 +716,15 @@ button {
   justify-content: center;
 }
 
-/* Dashboard Body Content Layout (3 Columns with Tidied Gaps) */
-.dashboard-body {
+/* Dashboard Body Content Layout */
+.dashboard-body,
+.dashboard-content {
   margin-top: 68px;
   height: calc(100vh - 68px);
   overflow-y: auto;
   padding: 1.5rem 1.75rem;
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 1.5rem;
+  display: block;
+  width: 100%;
 }
 
 .sidebar::-webkit-scrollbar,
@@ -1887,14 +1940,14 @@ body.page-exiting {
    ========================================== */
 
 /* Main Dashboard Body Layout */
-.dashboard-body {
+.dashboard-body,
+.dashboard-content {
   padding: 1.75rem 2.25rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
-  gap: 1.75rem;
-  max-width: 1680px;
-  margin: 0 auto;
-  width: 100%;
+  display: block;
+  max-width: 100% !important;
+  margin: 0;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 .center-content {
@@ -3846,6 +3899,816 @@ input:checked + .toggle-slider:before {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS (Desktop, Tablet, Mobile)
+   ========================================================================== */
+
+/* Tablet & Intermediate Screens (768px to 1100px) */
+@media (max-width: 1100px) {
+  .dashboard-grid-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .dashboard-right-col {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 20px !important;
+  }
+}
+
+/* Tablet & Mobile Screens (<= 992px) */
+@media (max-width: 992px) {
+  .sidebar {
+    width: 220px !important;
+  }
+  .main-wrapper,
+  .dashboard-layout {
+    margin-left: 220px !important;
+    width: calc(100% - 220px) !important;
+  }
+  .header,
+  .top-navbar {
+    left: 220px !important;
+  }
+}
+
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed !important;
+    left: -270px !important;
+    top: 0 !important;
+    width: 250px !important;
+    height: 100vh !important;
+    z-index: 2000 !important;
+    transition: left 0.3s ease !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+
+  .sidebar.mobile-open {
+    left: 0 !important;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .main-wrapper,
+  .dashboard-layout {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .header,
+  .top-navbar {
+    left: 0 !important;
+    padding: 12px 16px !important;
+  }
+
+  .dashboard-body,
+  .dashboard-content {
+    padding: 1rem !important;
+  }
+
+  .search-box-wrapper {
+    width: 180px !important;
+  }
+
+  .search-cmd-badge {
+    display: none !important;
+  }
+
+  /* 4 KPI cards wrap 2x2 */
+  .dashboard-left-col > div:nth-child(2) {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Hero card buttons wrap 2x2 */
+  .hero-balance-card > div:last-child {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Spending & Budget sub-grid stack vertically */
+  .dashboard-left-col > div:nth-child(4) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-right-col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Small Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+  .dashboard-left-col > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-balance-card {
+    padding: 18px 16px !important;
+  }
+
+  .hero-balance-card h2 {
+    font-size: 1.8rem !important;
+  }
+
+  .search-box-wrapper {
+    max-width: 140px !important;
+  }
+
+  .header-greeting h1 {
+    font-size: 1.05rem !important;
+  }
+
+  .header-greeting p {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   GLOBAL INTERACTIVE ANIMATIONS & SPACING SYSTEM
+   ========================================================================== */
+
+/* Page View Entrance Animation */
+@keyframes finlyPageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dashboard-redesign-container,
+.analytics-content,
+.investments-content,
+.budgets-content,
+.reports-content,
+.settings-content,
+.dashboard-content,
+.cards-content,
+.wallet-content,
+.transactions-content {
+  animation: finlyPageFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Card Hover Elevation & Smooth Micro-Interactions */
+.card, 
+.card-box, 
+.kpi-sparkline-card, 
+.feature-card,
+.hero-card,
+.hero-balance-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
+}
+
+.card:hover, 
+.card-box:hover, 
+.kpi-sparkline-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Button Micro-Animations & Tactile Feedback */
+button, 
+.btn, 
+.btn-primary, 
+.btn-secondary, 
+.btn-upgrade, 
+.btn-oauth {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+button:hover, 
+.btn:hover, 
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-1.5px) scale(1.01) !important;
+}
+
+button:active, 
+.btn:active, 
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+/* Button Icon Micro Bounce */
+button:hover i, 
+.icon-btn:hover i {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+}
+
+/* Table Row Hover Animations */
+table tr {
+  transition: background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+tbody tr:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+/* Form Controls & Inputs Focus Glow */
+input, select, textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Modal Pop-In & Overlay Animations */
+@keyframes modalBackdropFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalWindowPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-overlay {
+  animation: modalBackdropFade 0.22s ease forwards !important;
+}
+
+.modal-container, 
+.modal-content,
+div[role="dialog"] {
+  animation: modalWindowPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+/* Page View Transition Animation for Tab Switches */
+@keyframes pageSlideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.page-transition-wrapper {
+  animation: pageSlideFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  width: 100%;
+}
+
+/* Sidebar Nav Item Hover & Active Micro-animations */
+.nav-item {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-item:hover {
+  transform: translateX(3px) !important;
+}
+
+.nav-item.active a {
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.12) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.nav-item a i {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+}
+
+.nav-item:hover a i {
+  transform: scale(1.15) rotate(-3deg);
+}
+
+/* Staggered Section Entrance Animations for Page Elements (Relaxed Pace) */
+@keyframes sectionStaggerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.page-transition-wrapper > div > section,
+.page-transition-wrapper > div > .card,
+.page-transition-wrapper > div > div > .card,
+.page-transition-wrapper .hero-balance-card,
+.page-transition-wrapper .kpi-sparkline-card,
+.page-transition-wrapper .card-box {
+  animation: sectionStaggerIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Relaxed Sequential Stagger Animation Delays */
+.page-transition-wrapper > div > *:nth-child(1),
+.page-transition-wrapper .hero-balance-card {
+  animation-delay: 0.08s;
+}
+
+.page-transition-wrapper > div > *:nth-child(2),
+.page-transition-wrapper .kpi-sparkline-card:nth-child(1) {
+  animation-delay: 0.16s;
+}
+
+.page-transition-wrapper .kpi-sparkline-card:nth-child(2) {
+  animation-delay: 0.24s;
+}
+
+.page-transition-wrapper .kpi-sparkline-card:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+.page-transition-wrapper .kpi-sparkline-card:nth-child(4) {
+  animation-delay: 0.40s;
+}
+
+.page-transition-wrapper > div > *:nth-child(3) {
+  animation-delay: 0.42s;
+}
+
+.page-transition-wrapper > div > *:nth-child(4) {
+  animation-delay: 0.52s;
+}
+
+.page-transition-wrapper > div > *:nth-child(5) {
+  animation-delay: 0.62s;
+}
+
+/* Smooth Scrolling & Scroll Reveal Effect */
+html, body, .dashboard-body, .sidebar {
+  scroll-behavior: smooth !important;
+}
+
+/* Premium Modal Pop-Up UI Styling */
+.modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(8, 12, 24, 0.72) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 999999 !important;
+  padding: 20px !important;
+  margin: 0 !important;
+  animation: modalBackdropFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.modal-backdrop.exiting {
+  animation: modalBackdropFadeOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.modal-container {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 22px !important;
+  width: 100% !important;
+  max-width: 500px !important;
+  padding: 26px 28px !important;
+  margin: auto !important;
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  animation: modalWindowPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  color: var(--text-main) !important;
+  position: relative !important;
+  max-height: 88vh !important;
+  overflow-y: auto !important;
+  z-index: 1000000 !important;
+}
+
+.modal-container::-webkit-scrollbar {
+  width: 6px !important;
+}
+.modal-container::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.modal-container::-webkit-scrollbar-thumb {
+  background: rgba(140, 150, 170, 0.25) !important;
+  border-radius: 10px !important;
+}
+.modal-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 150, 170, 0.4) !important;
+}
+
+.modal-container.modal-sm {
+  max-width: 420px !important;
+}
+
+.modal-container.modal-md {
+  max-width: 540px !important;
+}
+
+.modal-container.modal-lg {
+  max-width: 700px !important;
+}
+
+.modal-container.exiting {
+  animation: modalWindowPopOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.modal-header-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.modal-header-icon {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  background: rgba(37, 99, 235, 0.12) !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+  color: var(--accent-blue) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15) !important;
+}
+
+.modal-header h3 {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.015em !important;
+}
+
+.modal-subtitle {
+  font-size: 0.78rem !important;
+  color: var(--text-muted) !important;
+  margin: 2px 0 0 0 !important;
+  font-weight: 400 !important;
+}
+
+.btn-close-modal {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-app) !important;
+  color: var(--text-muted) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 1.1rem !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+.btn-close-modal:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #ef4444 !important;
+  transform: rotate(90deg) scale(1.05) !important;
+}
+
+.modal-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.modal-body .form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  margin-bottom: 0 !important;
+}
+
+.modal-body label {
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  letter-spacing: 0.01em !important;
+}
+
+.modal-body input, 
+.modal-body select, 
+.modal-body textarea {
+  width: 100% !important;
+  padding: 11px 15px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid var(--border-color) !important;
+  background: var(--bg-app) !important;
+  color: var(--text-main) !important;
+  font-size: 0.9rem !important;
+  outline: none !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+}
+
+.modal-body select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  padding: 10px !important;
+}
+
+.modal-body input:focus, 
+.modal-body select:focus,
+.modal-body textarea:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18) !important;
+  background: var(--bg-card) !important;
+}
+
+.modal-body input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.65 !important;
+}
+
+@keyframes toastSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalBackdropFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modalBackdropFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes modalWindowPopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalWindowPopOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+/* Glassmorphic Quick Action Buttons */
+.action-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.action-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.action-pill-btn:active {
+  transform: translateY(0) scale(0.97);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   GLOBAL COMPREHENSIVE ANIMATIONS & MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* 1. Global Input & Form Controls Focus Glow Animation */
+input, select, textarea {
+  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.25s ease,
+              transform 0.2s ease !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-blue, #2563eb) !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18), 0 2px 8px rgba(37, 99, 235, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+.input-wrapper {
+  transition: transform 0.2s ease !important;
+}
+
+.input-wrapper:focus-within i {
+  color: var(--primary-blue, #2563eb) !important;
+  transform: translateY(-50%) scale(1.15) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
+}
+
+/* 2. Interactive Card Lift & Border Glow Animations */
+.card, .card-box, .kpi-card, .investment-card, .budget-card, .wallet-card, .hero-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease,
+              background-color 0.3s ease !important;
+}
+
+.card:hover, .card-box:hover, .kpi-card:hover, .investment-card:hover, .budget-card:hover, .wallet-card:hover {
+  transform: translateY(-3px) scale(1.004) !important;
+  box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06) !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
+}
+
+.hero-card:hover {
+  transform: translateY(-4px) scale(1.005) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 20px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* 3. Table Rows & List Items Micro-Interactions */
+table tbody tr, .transaction-row, .budget-item, .investment-row, .card-item-row {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s ease, 
+              box-shadow 0.2s ease !important;
+}
+
+table tbody tr:hover, .transaction-row:hover, .budget-item:hover, .investment-row:hover, .card-item-row:hover {
+  transform: translateX(4px) !important;
+  background-color: var(--hover-bg, rgba(255, 255, 255, 0.04)) !important;
+}
+
+/* 4. Button Glow & Tactile Scale Feedback */
+button, .btn-primary, .btn-secondary, .btn-oauth, .action-pill-btn, .tab-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s ease, 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.2s ease !important;
+}
+
+button:hover, .btn-primary:hover, .btn-secondary:hover, .btn-oauth:hover {
+  transform: translateY(-1.5px) !important;
+}
+
+button:active, .btn-primary:active, .btn-secondary:active, .btn-oauth:active, .action-pill-btn:active {
+  transform: scale(0.96) translateY(0) !important;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.38) !important;
+}
+
+.btn-oauth:hover {
+  border-color: rgba(37, 99, 235, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 5. Icons Micro-Rotation & Hover Animations */
+.card:hover i, .card-box:hover i, button:hover i {
+  transform: scale(1.14) rotate(4deg);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 6. Badges, Chips & Status Pulse Animation */
+.badge, .status-chip, .amount-chip, .tag-chip {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease !important;
+}
+
+.badge:hover, .status-chip:hover, .amount-chip:hover {
+  transform: scale(1.08) !important;
+}
+
+@keyframes badgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.badge-dot {
+  animation: badgePulse 2s infinite ease-in-out;
+}
+
+/* 7. Auth Page Specific Entrance & Micro Animations */
+@keyframes authHeroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes authFormSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-hero-container {
+  animation: authHeroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.auth-form-container {
+  animation: authFormSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 8. Budget & Progress Bar Smooth Fill Animation */
+.progress-bar-fill, .budget-progress-bar {
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 9. Dropdown & Tooltip Entrance Animations */
+@keyframes dropdownFadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dropdown-menu, .tooltip-content {
+  animation: dropdownFadeScale 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 10. Smooth Tab Active Indicator Animation */
+.tab-item.active, .nav-item.active {
+  animation: popScale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+
 
 
 

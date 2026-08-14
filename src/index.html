@@ -6,19 +6,29 @@
   <title>Finly &mdash; Enterprise Financial Dashboard</title>
   <meta name="description" content="Modern enterprise-grade financial dashboard application for tracking transactions, cards, investments, and budgets.">
 
-  <!-- Google Fonts & Phosphor Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- SF Pro Display Font & Phosphor Icons -->
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- Base Application Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- ES Module Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.3.1",
+      "react-dom": "https://esm.sh/react-dom@18.3.1",
+      "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+      "recharts": "https://esm.sh/recharts@2.12.7?deps=react@18.3.1,react-dom@18.3.1"
+    }
+  }
+  </script>
 </head>
 <body>
   <div id="root"></div>
 
-  <!-- Main React Entry point script -->
-  <script type="module" src="./main.jsx"></script>
+  <!-- Compiled Application ES Module Bundle -->
+  <script type="module" src="./bundle.js"></script>
 </body>
 </html>

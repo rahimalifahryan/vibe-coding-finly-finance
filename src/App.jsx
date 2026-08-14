@@ -73,7 +73,9 @@ const MainAppContent = () => {
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
     >
-      {renderActiveView()}
+      <div key={activeTab} className="page-transition-wrapper">
+        {renderActiveView()}
+      </div>
     </Layout>
   );
 };

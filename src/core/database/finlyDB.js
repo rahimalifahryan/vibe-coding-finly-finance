@@ -9,26 +9,26 @@ export const INITIAL_USER = {
   id: 'usr_1',
   name: 'Alex Morgan',
   email: 'alex@finly.app',
-  role: 'Financial Analyst',
+  role: 'Pro Member',
   avatarInitials: 'AM',
   balance: 24568.32,
   isBalanceHidden: false,
 };
 
 export const INITIAL_TRANSACTIONS = [
-  { id: 'tx_1', merchant: 'Apple Store &mdash; iPhone 15 Pro', category: 'Shopping', date: 'Oct 24, 2026', status: 'Completed', amount: 1199.00, type: 'debit', icon: 'ph-tag' },
-  { id: 'tx_2', merchant: 'Stripe Direct Deposit', category: 'Income', date: 'Oct 22, 2026', status: 'Completed', amount: 4850.00, type: 'credit', icon: 'ph-bank' },
-  { id: 'tx_3', merchant: 'Whole Foods Market', category: 'Food', date: 'Oct 21, 2026', status: 'Completed', amount: 142.80, type: 'debit', icon: 'ph-shopping-bag' },
-  { id: 'tx_4', merchant: 'ConEd Electrical Utility', category: 'Bills', date: 'Oct 19, 2026', status: 'Pending', amount: 89.50, type: 'debit', icon: 'ph-lightning' },
-  { id: 'tx_5', merchant: 'Netflix Premium Subscription', category: 'Entertainment', date: 'Oct 15, 2026', status: 'Completed', amount: 19.99, type: 'debit', icon: 'ph-film-strip' },
-  { id: 'tx_6', merchant: 'Uber Technologies', category: 'Transport', date: 'Oct 12, 2026', status: 'Completed', amount: 34.50, type: 'debit', icon: 'ph-arrow-up-right' },
-  { id: 'tx_7', merchant: 'Freelance Design Payout', category: 'Income', date: 'Oct 10, 2026', status: 'Completed', amount: 1250.00, type: 'credit', icon: 'ph-bank' },
-  { id: 'tx_8', merchant: 'Starbucks Coffee', category: 'Food', date: 'Oct 08, 2026', status: 'Failed', amount: 8.75, type: 'debit', icon: 'ph-shopping-bag' }
+  { id: 'tx_1', merchant: 'Apple Store', category: 'Shopping', date: 'Jul 19, 2026', status: 'Completed', amount: 1290.00, type: 'debit', icon: 'ph-apple-logo' },
+  { id: 'tx_2', merchant: 'Whole Foods', category: 'Food', date: 'Jul 18, 2026', status: 'Completed', amount: 84.32, type: 'debit', icon: 'ph-shopping-bag' },
+  { id: 'tx_3', merchant: 'Salary &mdash; Acme Inc', category: 'Income', date: 'Jul 16, 2026', status: 'Completed', amount: 8420.50, type: 'credit', icon: 'ph-bank' },
+  { id: 'tx_4', merchant: 'Netflix', category: 'Entertainment', date: 'Jul 17, 2026', status: 'Completed', amount: 15.99, type: 'debit', icon: 'ph-film-strip' },
+  { id: 'tx_5', merchant: 'Uber', category: 'Transportation', date: 'Jul 17, 2026', status: 'Pending', amount: 22.40, type: 'debit', icon: 'ph-car' },
+  { id: 'tx_6', merchant: 'Con Edison', category: 'Bills', date: 'Jul 16, 2026', status: 'Completed', amount: 142.00, type: 'debit', icon: 'ph-lightning' },
+  { id: 'tx_7', merchant: 'Spotify', category: 'Entertainment', date: 'Jul 15, 2026', status: 'Failed', amount: 8.99, type: 'debit', icon: 'ph-music-notes' },
+  { id: 'tx_8', merchant: 'CVS Pharmacy', category: 'Healthcare', date: 'Jul 14, 2026', status: 'Completed', amount: 38.50, type: 'debit', icon: 'ph-first-aid-kit' }
 ];
 
 export const INITIAL_CARDS = [
-  { id: 'card-1', number: '0818 4920 1192 2514', holder: 'ALEX MORGAN', expires: '08/28', balance: 14250.00, isFrozen: false, monthlyLimit: 5000.00, brand: 'visa', bg: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)' },
-  { id: 'card-2', number: '4021 9902 8412 8830', holder: 'ALEX MORGAN', expires: '11/27', balance: 10318.32, isFrozen: false, monthlyLimit: 7500.00, brand: 'mastercard', bg: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }
+  { id: 'card-1', number: '0818 7183 0713 2514', holder: 'Alex Morgan', expires: '08/28', balance: 12480.50, isFrozen: false, monthlyLimit: 15000.00, brand: 'visa', bg: '#14171f' },
+  { id: 'card-2', number: '4021 9902 8412 8830', holder: 'Alex Morgan', expires: '04/27', balance: 4820.10, isFrozen: false, monthlyLimit: 10000.00, brand: 'mastercard', bg: 'linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%)' }
 ];
 
 export const INITIAL_BILLS = [
@@ -44,17 +44,18 @@ export const INITIAL_GOALS = [
 ];
 
 export const INITIAL_BUDGETS = [
-  { id: 'bgt-1', category: 'Food & Dining', spent: 620, target: 800, color: '#3b82f6' },
-  { id: 'bgt-2', category: 'Shopping & Retail', spent: 1199, target: 1200, color: '#f59e0b' },
-  { id: 'bgt-3', category: 'Bills & Utilities', spent: 480, target: 600, color: '#10b981' },
-  { id: 'bgt-4', category: 'Entertainment', spent: 185, target: 300, color: '#8b5cf6' }
+  { id: 'bgt-1', category: 'Food', spent: 780.00, target: 800.00, color: '#3b82f6' },
+  { id: 'bgt-2', category: 'Shopping', spent: 1400.00, target: 1200.00, color: '#ef4444', isOver: true, overAmount: 200.00 },
+  { id: 'bgt-3', category: 'Entertainment', spent: 435.00, target: 500.00, color: '#3b82f6' },
+  { id: 'bgt-4', category: 'Travel', spent: 320.00, target: 800.00, color: '#3b82f6' },
+  { id: 'bgt-5', category: 'Bills', spent: 952.00, target: 900.00, color: '#3b82f6' }
 ];
 
 export const INITIAL_INVESTMENTS = [
-  { id: 'inv-1', name: 'Apple Inc.', symbol: 'AAPL', holdings: 24.5, currentPrice: 178.40, value: 4370.80, returnPct: '+14.2%', isPositive: true },
-  { id: 'inv-2', name: 'Tesla Motors', symbol: 'TSLA', holdings: 12.0, currentPrice: 215.10, value: 2581.20, returnPct: '-3.8%', isPositive: false },
-  { id: 'inv-3', name: 'Vanguard S&P 500 Index', symbol: 'VOO', holdings: 18.2, currentPrice: 412.30, value: 7503.86, returnPct: '+8.9%', isPositive: true },
-  { id: 'inv-4', name: 'Bitcoin', symbol: 'BTC', holdings: 0.18, currentPrice: 62450.00, value: 11241.00, returnPct: '+32.4%', isPositive: true }
+  { id: 'inv-1', name: 'Apple Inc.', symbol: 'AAPL', holdings: 70.0, currentPrice: 178.28, value: 12480.00, returnPct: '+1.2%', isPositive: true, pctShare: 38, color: '#f97316' },
+  { id: 'inv-2', name: 'Microsoft', symbol: 'MSFT', holdings: 21.0, currentPrice: 411.42, value: 8640.00, returnPct: '+0.8%', isPositive: true, pctShare: 26, color: '#a855f7' },
+  { id: 'inv-3', name: 'Bitcoin', symbol: 'BTC', holdings: 0.10, currentPrice: 64200.00, value: 6420.00, returnPct: '-2.1%', isPositive: false, pctShare: 20, color: '#06b6d4' },
+  { id: 'inv-4', name: 'Vanguard S&P 500', symbol: 'VOO', holdings: 12.7, currentPrice: 412.60, value: 5240.00, returnPct: '+0.4%', isPositive: true, pctShare: 16, color: '#3b82f6' }
 ];
 
 export const INITIAL_SETTINGS = {
