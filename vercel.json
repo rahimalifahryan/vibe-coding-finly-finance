@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "buildCommand": null,
+  "buildCommand": "echo Build completed",
   "outputDirectory": "src",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
