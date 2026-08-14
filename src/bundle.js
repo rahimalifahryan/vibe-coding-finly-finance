@@ -194,36 +194,17 @@ var AuthProvider = ({ children }) => {
     const loadSession = async () => {
       try {
         if (typeof window !== "undefined") {
+          const isLoggedIn = sessionStorage.getItem("finly_logged_in") === "true" || localStorage.getItem("finly_logged_in") === "true";
           const storedUserRaw = sessionStorage.getItem("finly_user") || localStorage.getItem("finly_user");
-          if (storedUserRaw) {
+          if (isLoggedIn && storedUserRaw) {
             setUser(JSON.parse(storedUserRaw));
           } else {
-            const dbUser = await finlyDB.get("user", "usr_1");
-            const defaultUser = dbUser || {
-              id: "usr_1",
-              name: "Alex Morgan",
-              email: "alex@finly.app",
-              role: "Financial Analyst",
-              avatarInitials: "AM",
-              balance: 24568.32,
-              isBalanceHidden: false
-            };
-            setUser(defaultUser);
-            sessionStorage.setItem("finly_user", JSON.stringify(defaultUser));
-            sessionStorage.setItem("finly_logged_in", "true");
+            setUser(null);
           }
         }
       } catch (err) {
         console.error("Failed to load session:", err);
-        setUser({
-          id: "usr_1",
-          name: "Alex Morgan",
-          email: "alex@finly.app",
-          role: "Financial Analyst",
-          avatarInitials: "AM",
-          balance: 24568.32,
-          isBalanceHidden: false
-        });
+        setUser(null);
       } finally {
         setLoading(false);
       }
