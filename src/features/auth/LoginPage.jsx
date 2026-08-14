@@ -36,10 +36,11 @@ export const LoginPage = ({ onNavigateRegister, onLoginSuccess }) => {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', width: '100vw', background: isDark ? '#090a0d' : '#141518', overflowX: 'hidden' }}>
+    <div className="auth-outer-container" style={{ display: 'flex', minHeight: '100vh', width: '100vw', background: isDark ? '#090a0d' : '#141518', overflowX: 'hidden' }}>
       
       {/* Left Panel - Hero View (50% Width) */}
       <div
+        className="auth-left-panel"
         style={{
           width: '50%',
           flex: '0 0 50%',
@@ -51,7 +52,7 @@ export const LoginPage = ({ onNavigateRegister, onLoginSuccess }) => {
           padding: '48px 56px',
           display: 'flex',
           flexDirection: 'column',
-          justify: 'space-between',
+          justifyContent: 'space-between',
           borderRight: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(255, 255, 255, 0.06)',
           boxSizing: 'border-box'
         }}
@@ -167,6 +168,7 @@ export const LoginPage = ({ onNavigateRegister, onLoginSuccess }) => {
 
       {/* Right Panel - Sign-In Form (50% Width Centered) */}
       <div
+        className="auth-right-panel"
         style={{
           width: '50%',
           flex: '0 0 50%',

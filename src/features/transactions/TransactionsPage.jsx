@@ -190,7 +190,7 @@ export const TransactionsPage = ({ searchQuery }) => {
         </div>
 
         {/* Data Table */}
-        <div style={{ overflowX: 'auto' }}>
+        <div className="table-responsive-wrapper" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.84rem' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '0.68rem', letterSpacing: '0.5px' }}>

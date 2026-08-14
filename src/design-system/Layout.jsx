@@ -150,9 +150,9 @@ export const Layout = ({ activeTab, setActiveTab, children, searchQuery, setSear
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* Mobile Menu Hamburger Button */}
             <button
-              className="btn-icon mobile-menu-toggle"
+              className="icon-btn mobile-hamburger-btn"
               onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-              style={{ display: 'none', background: 'none', border: 'none', fontSize: '1.4rem', color: 'var(--text-main)', cursor: 'pointer', padding: '4px' }}
+              style={{ display: 'none', background: 'none', border: '1px solid var(--border-color)', borderRadius: '10px', fontSize: '1.25rem', color: 'var(--text-main)', cursor: 'pointer', padding: '6px 10px' }}
               title="Open Navigation"
             >
               <i className="ph ph-list"></i>
